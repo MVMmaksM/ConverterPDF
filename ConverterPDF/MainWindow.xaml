@@ -9,9 +9,9 @@
     <Grid UseLayoutRounding="True" Background="AliceBlue">
         <Menu Height="25" VerticalAlignment="Top" Background="#086499" Foreground="WhiteSmoke">
             <MenuItem Header="Logs" Height="25">
-                <MenuItem Header="Открыть текущий log-файл" Background="#086499" Foreground="WhiteSmoke"/>
-                <MenuItem Header="Открыть папку с log-файлами" Background="#086499" Foreground="WhiteSmoke"/>
-                <MenuItem Header="Удалить все log-файлы" Background="#086499" Foreground="WhiteSmoke"/>
+                <MenuItem Header="Открыть текущий log-файл" Background="#086499" Foreground="WhiteSmoke" Click="MenuOpenCurrentLog_Click"/>
+                <MenuItem Header="Открыть папку с log-файлами" Background="#086499" Foreground="WhiteSmoke" Click="MenuOpenFolderLog_Click"/>
+                <MenuItem Header="Удалить все log-файлы" Background="#086499" Foreground="WhiteSmoke" Click="MenuDeleteAllLogs_Click"/>
             </MenuItem>
             <MenuItem Header="Настройки"/>
             <MenuItem Header="О программе"/>

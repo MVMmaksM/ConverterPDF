@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,26 @@ namespace ConverterPDF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static ILogger _logger = LogManager.GetCurrentClassLogger();
+        private static string pathFolderLogs = $"{Environment.CurrentDirectory}\\logs";
+        private static string pathCurrentLogFile = $"{pathFolderLogs}\\{DateTime.Now.ToString("yyyy-MM-dd")}.log";
         public MainWindow()
         {
             InitializeComponent();
+        }          
+        private void MenuOpenCurrentLog_Click(object sender, RoutedEventArgs e)
+        {
+          
+        }
+
+        private void MenuOpenFolderLog_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuDeleteAllLogs_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
