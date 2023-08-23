@@ -1,0 +1,83 @@
+﻿<Window x:Class="ConverterPDF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConverterPDF"
+        mc:Ignorable="d"
+        Title="ConverterPDF" Height="603" Width="600" ResizeMode="NoResize">
+    <Grid UseLayoutRounding="True" Background="AliceBlue">
+        <Menu Height="25" VerticalAlignment="Top" Background="#086499" Foreground="WhiteSmoke">
+            <MenuItem Header="Logs" Height="25">
+                <MenuItem Header="Открыть текущий log-файл" Background="#086499" Foreground="WhiteSmoke"/>
+                <MenuItem Header="Открыть папку с log-файлами" Background="#086499" Foreground="WhiteSmoke"/>
+                <MenuItem Header="Удалить все log-файлы" Background="#086499" Foreground="WhiteSmoke"/>
+            </MenuItem>
+            <MenuItem Header="Настройки"/>
+            <MenuItem Header="О программе"/>
+        </Menu>
+        <StackPanel Margin="0,25,0,0" Height="534" VerticalAlignment="Top">
+            <GroupBox Header="Конвертер" Height="88" Width="580" BorderBrush="#FF88898A">
+                <Grid>
+                    <Button x:Name="LoadFile" Content="Загрузить файл" Width="250" Height="25" Margin="10,11,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#0896fe" Foreground="WhiteSmoke">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="2"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" Direction="290" ShadowDepth="3" Opacity="0.6"/>
+                        </Button.Effect>
+                    </Button>
+                    <Label Content="Только форматы: *.xlsx,*.docx,*.pptx" Height="25" Width="250" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="ConvertToPDF" Content="Конвертировать в PDF" Width="250" Height="25" Margin="0,11,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#0896fe" Foreground="WhiteSmoke">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="2"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" Direction="290" ShadowDepth="3" Opacity="0.6"/>
+                        </Button.Effect>
+                    </Button>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Объединить PDF" Height="109" Width="580" Margin="0,10,0,10" BorderBrush="#FF88898A">
+                <Grid>
+                    <Button x:Name="LoadOneFile" Height="25" Width="250" HorizontalAlignment="Left" Margin="10" Content="Загрузить 1 файл" Background="#0896fe" Foreground="WhiteSmoke" VerticalAlignment="Top">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="2"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" Direction="290" ShadowDepth="3" Opacity="0.6"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button x:Name="LoadSeconFile" Height="25" Width="250" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" Content="Загрузить 2 файл" Background="#0896fe" Foreground="WhiteSmoke">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="2"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" Direction="290" ShadowDepth="3" Opacity="0.6"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button x:Name="UniteFile" Content="Объединить" Height="26" Width="250" VerticalAlignment="Top" HorizontalAlignment="Center" Background="#0896fe" Foreground="WhiteSmoke" Margin="0,48,0,0">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="2"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" Direction="290" ShadowDepth="3" Opacity="0.6"/>
+                        </Button.Effect>
+                    </Button>
+                </Grid>
+            </GroupBox>
+            <TextBox x:Name="Info" Height="295" Width="580" IsReadOnly="True"/>
+        </StackPanel>
+        <StatusBar VerticalAlignment="Bottom" Height="25" Background="#086499"/>
+    </Grid>
+</Window>
