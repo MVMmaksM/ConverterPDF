@@ -19,6 +19,15 @@ namespace ConverterPDF.Services
             MessageBox.Show(message, "Информация", MessageBoxButton.OKCancel, MessageBoxImage.Information);
         }
 
+        public bool Question(string message)
+        {
+           var result = MessageBox.Show(message, "Информация", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            var
+        }
+
+
+
         public void Warning(string message)
         {
             MessageBox.Show(message, "Предупреждение", MessageBoxButton.OKCancel, MessageBoxImage.Warning);

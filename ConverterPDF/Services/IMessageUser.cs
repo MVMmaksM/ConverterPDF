@@ -11,5 +11,6 @@ namespace ConverterPDF.Services
         void Info(string message);
         void Error(string message);
         void Warning(string message);
+        bool Question(string message);
     }
 }
