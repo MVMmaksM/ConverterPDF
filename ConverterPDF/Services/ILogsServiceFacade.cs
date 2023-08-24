@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConverterPDF
+namespace ConverterPDF.Services
 {
     public interface ILogsServiceFacade
     {
-        void OpenCurrenLogFile(string pathCurrentLogFile);
+        void OpenCurrentLogFile(string pathCurrentLogFile);
         void OpenFolderLogs(string pathFolderLogs);
-        int DeleteAllLogFiles(string pathFolderLogFile);
+        void DeleteAllLogFiles(string pathFolderLogFile);
     }
 }
