@@ -22,25 +22,28 @@ namespace ConverterPDF.Services
         }
         public void DeleteAllLogFiles(string pathFolderLogFile)
         {
-            _logger.Info("Удаление log-файлов");
-
-            try
+            if (_messageUser.Question("Удалить все log-файлы?"))
             {
-                int countDeleteFile = 0;
-                var directiryInfo = new DirectoryInfo(pathFolderLogFile);
+                _logger.Info("Удаление log-файлов");
 
-                foreach (FileInfo logFile in directiryInfo.EnumerateFiles())
+                try
                 {
-                    logFile.Delete();
-                    countDeleteFile++;
-                }
+                    int countDeleteFile = 0;
+                    var directiryInfo = new DirectoryInfo(pathFolderLogFile);
 
-                _messageUser.Info($"Удално log-файлов: {countDeleteFile}");
-            }
-            catch (Exception ex)
-            {
-                _messageUser.Error(ex.Message);
-                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");               
+                    foreach (FileInfo logFile in directiryInfo.EnumerateFiles())
+                    {
+                        logFile.Delete();
+                        countDeleteFile++;
+                    }
+
+                    _messageUser.Info($"Удално log-файлов: {countDeleteFile}");
+                }
+                catch (Exception ex)
+                {
+                    _messageUser.Error(ex.Message);
+                    _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+                }
             }
         }
 
@@ -49,7 +52,7 @@ namespace ConverterPDF.Services
             _logger.Info("Откртыие директории с log-файлами");
 
             try
-            {              
+            {
                 OpenLog(pathCurrentLogFile);
             }
             catch (Exception ex)
@@ -64,7 +67,7 @@ namespace ConverterPDF.Services
             _logger.Info("Открытие директории с log-файлами");
 
             try
-            {              
+            {
                 OpenLog(pathFolderLogs);
             }
             catch (Exception ex)

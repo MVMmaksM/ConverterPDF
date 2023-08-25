@@ -9,28 +9,9 @@ namespace ConverterPDF.Services
 {
     public class MessageUser : IMessageUser
     {
-        public void Error(string message)
-        {
-            MessageBox.Show($"{message}\nПодробная информация находится в log-файле", "Ошибка", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-        }
-
-        public void Info(string message)
-        {
-            MessageBox.Show(message, "Информация", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-        }
-
-        public bool Question(string message)
-        {
-           var result = MessageBox.Show(message, "Информация", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            var
-        }
-
-
-
-        public void Warning(string message)
-        {
-            MessageBox.Show(message, "Предупреждение", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-        }
+        public void Error(string message) => MessageBox.Show($"{message}\nПодробная информация находится в log-файле", "Ошибка", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+        public void Info(string message) => MessageBox.Show(message, "Информация", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+        public bool Question(string message) => MessageBox.Show(message, "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+        public void Warning(string message) => MessageBox.Show(message, "Предупреждение", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
     }
 }

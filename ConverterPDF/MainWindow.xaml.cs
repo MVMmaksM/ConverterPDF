@@ -48,7 +48,7 @@ namespace ConverterPDF
 
         private void MenuDeleteAllLogs_Click(object sender, RoutedEventArgs e)
         {
-
+            _logServiceFacade.DeleteAllLogFiles(pathFolderLogs);
         }
     }
 }
