@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
+using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Microsoft.Office;
 using Microsoft.Office.Core;
 
@@ -46,17 +47,33 @@ namespace ConverterPDF.Services
 
         public void ConvertPowerPointToPdf(List<string> pathPowerPointFiles)
         {
-            var appPowerPoint = new Microsoft.Office.Interop.PowerPoint.Application();
-            Microsoft.Office.Interop.PowerPoint.Presentation docPres = null;
+            var appPowerPoint = new PowerPoint.Application();
+            appPowerPoint.Visible = MsoTriState.msoTrue;
+            PowerPoint.Presentation docPres = null;
+            var pathFileConverting = string.Empty;
 
-            foreach (var pathFile in pathPowerPointFiles)
+            try
             {
-                docPres = appPowerPoint.Presentations.Open(pathFile);
-                appPowerPoint.ActivePresentation.ExportAsFixedFormat(Path.ChangeExtension(pathFile, ".pdf"), Microsoft.Office.Interop.PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF);
-                docPres.Close();
+                foreach (var pathFile in pathPowerPointFiles)
+                {
+                    pathFileConverting = pathFile;
+
+                    docPres = appPowerPoint.Presentations.Open(pathFile);
+                    appPowerPoint.ActivePresentation.ExportAsFixedFormat(Path.ChangeExtension(pathFile, ".pdf"), PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF);
+                    docPres.Close();
+                }
+
+                appPowerPoint.Quit();
             }
-            
-            appPowerPoint.Quit();
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка при конвертации файла: {pathFileConverting}", ex);
+            }
+            finally 
+            {
+                docPres.Close();
+                appPowerPoint.Quit();
+            }
         }
         public void ConvertWordToPdf(List<string> pathWordFiles)
         {
