@@ -53,7 +53,7 @@ namespace ConverterPDF.Services
 
         public void ConvertPdf()
         {
-            if (pathFiles.Count == 0)
+            if (pathFiles is null || pathFiles.Count == 0)
             {
                 _messageUser.Warning("Не загружено ни одного файла!");
                 return;
@@ -65,7 +65,9 @@ namespace ConverterPDF.Services
             var pathWordFiles = pathFiles
                 .Where(pathFile => (Path.GetExtension(pathFile) is ".docx") || (Path.GetExtension(pathFile) is ".doc"))
                 .ToList();
-            var pathPowerPointFiles = pathFiles.Where(pathFile => Path.GetExtension(pathFile) is ".pptx").ToList();
+            var pathPowerPointFiles = pathFiles
+                .Where(pathFile => Path.GetExtension(pathFile) is ".pptx")
+                .ToList();
 
             try
             {
@@ -84,7 +86,7 @@ namespace ConverterPDF.Services
                 if (pathPowerPointFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Power Point");
-                   Task.Run(()=>_converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles));
+                    Task.Run(() => _converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles));
                 }
             }
             catch (Exception ex)
