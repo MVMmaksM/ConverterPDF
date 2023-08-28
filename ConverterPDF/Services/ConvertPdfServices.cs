@@ -97,8 +97,7 @@ namespace ConverterPDF.Services
                 throw new Exception($"Ошибка при конвертации файла: {pathFileConverting}", ex);
             }
             finally
-            {
-                document.Close();
+            {               
                 appWord.Quit();
             }
         }

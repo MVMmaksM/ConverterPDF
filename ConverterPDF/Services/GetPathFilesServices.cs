@@ -17,7 +17,7 @@ namespace ConverterPDF.Services
             openFileDialog.Multiselect = true;
             openFileDialog.InitialDirectory = Environment.SpecialFolder.Desktop.ToString();
             openFileDialog.DefaultExt = ".xlsx|.pptx|.docx";
-            openFileDialog.Filter = "Microsoft Excel (.xlsx)|*.xlsx|Microsoft Word (.docx)|*.docx|Power Point (.pptx)|*.pptx";
+            openFileDialog.Filter = "Microsoft Excel|*.xlsx;*.xls|Microsoft Word|*.docx;*.doc|Power Point|*.pptx|Все файлы|*.xlsx;*.xls;*.docx;*.doc;*.pptx";
 
             bool? dialogResult = openFileDialog.ShowDialog();
 

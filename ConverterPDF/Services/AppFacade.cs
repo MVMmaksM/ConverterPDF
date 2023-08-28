@@ -59,8 +59,12 @@ namespace ConverterPDF.Services
                 return;
             }
 
-            var pathExcelFiles = pathFiles.Where(pathFile => Path.GetExtension(pathFile) is ".xlsx").ToList();
-            var pathWordFiles = pathFiles.Where(pathFile => Path.GetExtension(pathFile) is ".docx").ToList();
+            var pathExcelFiles = pathFiles
+                .Where(pathFile => (Path.GetExtension(pathFile) is ".xlsx") || (Path.GetExtension(pathFile) is ".xls"))
+                .ToList();
+            var pathWordFiles = pathFiles
+                .Where(pathFile => (Path.GetExtension(pathFile) is ".docx") || (Path.GetExtension(pathFile) is ".doc"))
+                .ToList();
             var pathPowerPointFiles = pathFiles.Where(pathFile => Path.GetExtension(pathFile) is ".pptx").ToList();
 
             try
@@ -68,19 +72,19 @@ namespace ConverterPDF.Services
                 if (pathExcelFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Excel");
-                    _converterPdf.ConvertExcelToPdf(pathExcelFiles);
+                    Task.Run(() => _converterPdf.ConvertExcelToPdf(pathExcelFiles));
                 }
 
                 if (pathWordFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Word");
-                    _converterPdf.ConvertWordToPdf(pathWordFiles);
+                    Task.Run(() => _converterPdf.ConvertWordToPdf(pathWordFiles));
                 }
 
                 if (pathPowerPointFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Power Point");
-                    _converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles);
+                   Task.Run(()=>_converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles));
                 }
             }
             catch (Exception ex)
@@ -90,8 +94,8 @@ namespace ConverterPDF.Services
             }
         }
 
-        public void OpenCurrentLogFile() => _logsService.OpenCurrentLogFile(pathCurrentLogFile);       
-        public void OpenFolderLogs() =>_logsService.OpenFolderLogs(pathFolderLogs);      
+        public void OpenCurrentLogFile() => _logsService.OpenCurrentLogFile(pathCurrentLogFile);
+        public void OpenFolderLogs() => _logsService.OpenFolderLogs(pathFolderLogs);
         public void DeleteAllLogFiles() => _logsService.DeleteAllLogFiles(pathFolderLogs);
     }
 }
