@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
-using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Word = Microsoft.Office.Interop.Word;
+using Microsoft.Office;
+using Microsoft.Office.Core;
 
 namespace ConverterPDF.Services
 {
@@ -36,38 +37,56 @@ namespace ConverterPDF.Services
             {
                 throw new Exception($"Ошибка при конвертации файла: {pathFileConverting}", ex);
             }
-            finally 
+            finally
             {
                 workbook.Close();
                 appExcel.Quit();
-            }            
+            }
         }
 
         public void ConvertPowerPointToPdf(List<string> pathPowerPointFiles)
         {
-            //var appPowerPoint = new PowerPoint.Application();
-            //PowerPoint.Presentation docPres = appPowerPoint.Presentations.Open(@"C:\\Users\\p45_VaganovMV\\Desktop\\Result.pdf");
-            //appPowerPoint.ActivePresentation.ExportAsFixedFormat(pathPdf, PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF);
-            //docPres.Close();
-            //appPowerPoint.Quit();
+            var appPowerPoint = new Microsoft.Office.Interop.PowerPoint.Application();
+            Microsoft.Office.Interop.PowerPoint.Presentation docPres = null;
+
+            foreach (var pathFile in pathPowerPointFiles)
+            {
+                docPres = appPowerPoint.Presentations.Open(pathFile);
+                appPowerPoint.ActivePresentation.ExportAsFixedFormat(Path.ChangeExtension(pathFile, ".pdf"), Microsoft.Office.Interop.PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF);
+                docPres.Close();
+            }
+            
+            appPowerPoint.Quit();
         }
         public void ConvertWordToPdf(List<string> pathWordFiles)
         {
-           var appWord = new Word.Application();
+            var appWord = new Word.Application();
             appWord.Visible = true;
             Word.Document document = null;
             var pathFileConverting = string.Empty;
 
-            foreach (var pathFile in pathWordFiles)
+            try
             {
-                pathFileConverting = pathFile;
+                foreach (var pathFile in pathWordFiles)
+                {
+                    pathFileConverting = pathFile;
 
-                document = appWord.Documents.Open(pathFile);
-                appWord.ActiveDocument.ExportAsFixedFormat(Path.ChangeExtension(pathFile, ".pdf"), Word.WdExportFormat.wdExportFormatPDF);
-                document.Close();
+                    document = appWord.Documents.Open(pathFile);
+                    appWord.ActiveDocument.ExportAsFixedFormat(Path.ChangeExtension(pathFile, ".pdf"), Word.WdExportFormat.wdExportFormatPDF);
+                    document.Close();
+                }
+
+                appWord.Quit();
             }
-             
-            appWord.Quit();
+            catch (Exception ex)
+            {
+                throw new Exception($"Ошибка при конвертации файла: {pathFileConverting}", ex);
+            }
+            finally
+            {
+                document.Close();
+                appWord.Quit();
+            }
         }
     }
 }
