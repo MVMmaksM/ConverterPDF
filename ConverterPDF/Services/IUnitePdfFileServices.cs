@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ConverterPDF.Services
 {
-    public interface IGetPathFilesServices
+    public interface IUnitePdfFileServices
     {
-        List<string> GetPathFiles(string defaultExtFile, string filter, string initialDirectory);
+        void UnitePdfFiles(List<string> inputPathFiles, string outputPathFile);
     }
 }

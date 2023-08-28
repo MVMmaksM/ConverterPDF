@@ -31,9 +31,9 @@ namespace ConverterPDF
             InitializeComponent();
             _logger.Info("Запуск приложения");
 
-            _appFacade = AppFacade.GetInstance(new ConvertPdfServices(), new GetPathFilesServices(), new LogsServices(_logger, _messageUser), _messageUser, _logger);
-            
-        }          
+            _appFacade = AppFacade.GetInstance(new UnitePdfFilesServices(), new ConvertPdfServices(), new GetPathFilesServices(), new LogsServices(_logger, _messageUser), _messageUser, _logger);
+
+        }
         private void MenuOpenCurrentLog_Click(object sender, RoutedEventArgs e)
         {
             _appFacade.OpenCurrentLogFile();
@@ -49,14 +49,19 @@ namespace ConverterPDF
             _appFacade.DeleteAllLogFiles();
         }
 
-        private void LoadFile_Click(object sender, RoutedEventArgs e)
-        {
-            _appFacade.GetPath();
-        }
-
         private void ConvertToPDF_Click(object sender, RoutedEventArgs e)
         {
             _appFacade.ConvertPdf();
+        }
+
+        private void LoadFileForConverting_Click(object sender, RoutedEventArgs e)
+        {
+            _appFacade.GetPathForConverting();
+        }
+
+        private void LoadPdfForUnite_Click(object sender, RoutedEventArgs e)
+        {
+            _appFacade.GetPathForUnite();
         }
     }
 }

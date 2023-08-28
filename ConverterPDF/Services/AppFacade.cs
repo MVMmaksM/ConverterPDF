@@ -14,13 +14,22 @@ namespace ConverterPDF.Services
         private IGetPathFilesServices _pathFilesServices;
         private ILogsServices _logsService;
         private IMessageUser _messageUser;
+        private IUnitePdfFileServices _unitePdfFileServices;
         private static ILogger _logger;
         private static AppFacade _instance;
-        private List<string> pathFiles;
+        private List<string> pathFilesForConverting;
+        private List<string> pathFilesForUnite;
         private static string pathFolderLogs = $"{Environment.CurrentDirectory}\\logs";
         private static string pathCurrentLogFile = $"{pathFolderLogs}\\{DateTime.Now.ToString("yyyy-MM-dd")}.log";
-        private AppFacade(IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger)
+        private string filterFileConverting = "Microsoft Excel|*.xlsx;*.xls|Microsoft Word|*.docx;*.doc|Power Point|*.pptx|Все файлы|*.xlsx;*.xls;*.docx;*.doc;*.pptx";
+        private string filterFileUnite = "PDF|*.pdf";
+        private string initialDirectory = Environment.SpecialFolder.Desktop.ToString();
+        private string defaultExtConverting = ".xlsx|.pptx|.docx";
+        private string defaultExtUnite = ".pdf";
+
+        private AppFacade(IUnitePdfFileServices unitePdfFileServices,IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger)
         {
+            _unitePdfFileServices = unitePdfFileServices;
             _converterPdf = convertPdfServices;
             _pathFilesServices = getPathFilesServices;
             _logsService = logsServices;
@@ -28,21 +37,21 @@ namespace ConverterPDF.Services
             _logger = logger;
         }
 
-        public static AppFacade GetInstance(IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger)
+        public static AppFacade GetInstance(IUnitePdfFileServices unitePdfFileServices,IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger)
         {
             if (_instance is null)
             {
-                _instance = new AppFacade(convertPdfServices, getPathFilesServices, logsServices, messageUser, logger);
+                _instance = new AppFacade(unitePdfFileServices, convertPdfServices, getPathFilesServices, logsServices, messageUser, logger);
             }
 
             return _instance;
         }
 
-        public void GetPath()
+        public void GetPathForConverting()
         {
             try
             {
-                pathFiles = _pathFilesServices.GetPathFiles();
+                pathFilesForConverting = _pathFilesServices.GetPathFiles(defaultExtConverting, filterFileConverting, initialDirectory);
             }
             catch (Exception ex)
             {
@@ -53,19 +62,19 @@ namespace ConverterPDF.Services
 
         public void ConvertPdf()
         {
-            if (pathFiles is null || pathFiles.Count == 0)
+            if (pathFilesForConverting is null || pathFilesForConverting.Count == 0)
             {
                 _messageUser.Warning("Не загружено ни одного файла!");
                 return;
             }
 
-            var pathExcelFiles = pathFiles
+            var pathExcelFiles = pathFilesForConverting
                 .Where(pathFile => (Path.GetExtension(pathFile) is ".xlsx") || (Path.GetExtension(pathFile) is ".xls"))
                 .ToList();
-            var pathWordFiles = pathFiles
+            var pathWordFiles = pathFilesForConverting
                 .Where(pathFile => (Path.GetExtension(pathFile) is ".docx") || (Path.GetExtension(pathFile) is ".doc"))
                 .ToList();
-            var pathPowerPointFiles = pathFiles
+            var pathPowerPointFiles = pathFilesForConverting
                 .Where(pathFile => Path.GetExtension(pathFile) is ".pptx")
                 .ToList();
 
@@ -99,5 +108,17 @@ namespace ConverterPDF.Services
         public void OpenCurrentLogFile() => _logsService.OpenCurrentLogFile(pathCurrentLogFile);
         public void OpenFolderLogs() => _logsService.OpenFolderLogs(pathFolderLogs);
         public void DeleteAllLogFiles() => _logsService.DeleteAllLogFiles(pathFolderLogs);
+        public void GetPathForUnite()
+        {
+            try
+            {
+                pathFilesForUnite = _pathFilesServices.GetPathFiles(defaultExtUnite, filterFileUnite, initialDirectory);
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
+        }
     }
 }
