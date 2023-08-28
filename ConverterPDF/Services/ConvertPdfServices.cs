@@ -36,11 +36,11 @@ namespace ConverterPDF.Services
             }
             catch (Exception ex)
             {
+                workbook.Close();
                 throw new Exception($"Ошибка при конвертации файла: {pathFileConverting}", ex);
             }
             finally
             {
-                workbook.Close();
                 appExcel.Quit();
             }
         }
@@ -61,17 +61,15 @@ namespace ConverterPDF.Services
                     docPres = appPowerPoint.Presentations.Open(pathFile);
                     appPowerPoint.ActivePresentation.ExportAsFixedFormat(Path.ChangeExtension(pathFile, ".pdf"), PowerPoint.PpFixedFormatType.ppFixedFormatTypePDF);
                     docPres.Close();
-                }
-
-                appPowerPoint.Quit();
+                }                
             }
             catch (Exception ex)
             {
+                docPres.Close();
                 throw new Exception($"Ошибка при конвертации файла: {pathFileConverting}", ex);
             }
-            finally 
-            {
-                docPres.Close();
+            finally
+            {                
                 appPowerPoint.Quit();
             }
         }
@@ -91,12 +89,11 @@ namespace ConverterPDF.Services
                     document = appWord.Documents.Open(pathFile);
                     appWord.ActiveDocument.ExportAsFixedFormat(Path.ChangeExtension(pathFile, ".pdf"), Word.WdExportFormat.wdExportFormatPDF);
                     document.Close();
-                }
-
-                appWord.Quit();
+                }               
             }
             catch (Exception ex)
             {
+                document.Close();
                 throw new Exception($"Ошибка при конвертации файла: {pathFileConverting}", ex);
             }
             finally

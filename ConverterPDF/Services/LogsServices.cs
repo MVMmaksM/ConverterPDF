@@ -10,12 +10,12 @@ using System.Windows;
 
 namespace ConverterPDF.Services
 {
-    internal class LogsServiceFacade : ILogsServiceFacade
+    internal class LogsServices : ILogsServices
     {
         private static ILogger _logger;
         private static IMessageUser _messageUser;
 
-        public LogsServiceFacade(ILogger logger, IMessageUser messageUser)
+        public LogsServices(ILogger logger, IMessageUser messageUser)
         {
             _logger = logger;
             _messageUser = messageUser;
@@ -37,7 +37,7 @@ namespace ConverterPDF.Services
                         countDeleteFile++;
                     }
 
-                    _messageUser.Info($"Удално log-файлов: {countDeleteFile}");
+                    _messageUser.Info($"Удалено log-файлов: {countDeleteFile}");
                 }
                 catch (Exception ex)
                 {

@@ -24,31 +24,39 @@ namespace ConverterPDF
     public partial class MainWindow : Window
     {
         private static ILogger _logger = LogManager.GetCurrentClassLogger();
-        private static string pathFolderLogs = $"{Environment.CurrentDirectory}\\logs";
-        private static string pathCurrentLogFile = $"{pathFolderLogs}\\{DateTime.Now.ToString("yyyy-MM-dd")}.log";
-        private IMessageUser _messageUser;
-        private ILogsServiceFacade _logServiceFacade;
+        private static IMessageUser _messageUser = new MessageUser();
+        private static AppFacade _appFacade;
         public MainWindow()
         {
             InitializeComponent();
             _logger.Info("Запуск приложения");
 
-            _messageUser = new MessageUser();
-            _logServiceFacade = new LogsServiceFacade(_logger, _messageUser);
+            _appFacade = AppFacade.GetInstance(new ConvertPdfServices(), new GetPathFilesServices(), new LogsServices(_logger, _messageUser), _messageUser, _logger);
+            
         }          
         private void MenuOpenCurrentLog_Click(object sender, RoutedEventArgs e)
         {
-            _logServiceFacade.OpenCurrentLogFile(pathCurrentLogFile);
+            _appFacade.OpenCurrentLogFile();
         }
 
         private void MenuOpenFolderLog_Click(object sender, RoutedEventArgs e)
         {
-            _logServiceFacade.OpenFolderLogs(pathFolderLogs);
+            _appFacade.OpenFolderLogs();
         }
 
         private void MenuDeleteAllLogs_Click(object sender, RoutedEventArgs e)
         {
-            _logServiceFacade.DeleteAllLogFiles(pathFolderLogs);
+            _appFacade.DeleteAllLogFiles();
+        }
+
+        private void LoadFile_Click(object sender, RoutedEventArgs e)
+        {
+            _appFacade.GetPath();
+        }
+
+        private void ConvertToPDF_Click(object sender, RoutedEventArgs e)
+        {
+            _appFacade.ConvertPdf();
         }
     }
 }

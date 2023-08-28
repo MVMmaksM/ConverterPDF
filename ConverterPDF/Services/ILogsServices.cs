@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConverterPDF.Services
 {
-    public interface ILogsServiceFacade
+    public interface ILogsServices
     {
         void OpenCurrentLogFile(string pathCurrentLogFile);
         void OpenFolderLogs(string pathFolderLogs);
