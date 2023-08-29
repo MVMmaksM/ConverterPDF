@@ -18,16 +18,17 @@ namespace ConverterPDF.Services
         private static ILogger _logger;
         private static AppFacade _instance;
         private List<string> pathFilesForConverting;
-        private List<string> pathFilesForUnite;
+        private List<string> pathFilesForUnite = new List<string>();
         private static string pathFolderLogs = $"{Environment.CurrentDirectory}\\logs";
         private static string pathCurrentLogFile = $"{pathFolderLogs}\\{DateTime.Now.ToString("yyyy-MM-dd")}.log";
         private string filterFileConverting = "Microsoft Excel|*.xlsx;*.xls|Microsoft Word|*.docx;*.doc|Power Point|*.pptx|Все файлы|*.xlsx;*.xls;*.docx;*.doc;*.pptx";
         private string filterFileUnite = "PDF|*.pdf";
-        private string initialDirectory = Environment.SpecialFolder.Desktop.ToString();
+        private string initialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         private string defaultExtConverting = ".xlsx|.pptx|.docx";
         private string defaultExtUnite = ".pdf";
+        private string outputUnitePdf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "unite.pdf");
 
-        private AppFacade(IUnitePdfFileServices unitePdfFileServices,IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger)
+        private AppFacade(IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger)
         {
             _unitePdfFileServices = unitePdfFileServices;
             _converterPdf = convertPdfServices;
@@ -37,7 +38,7 @@ namespace ConverterPDF.Services
             _logger = logger;
         }
 
-        public static AppFacade GetInstance(IUnitePdfFileServices unitePdfFileServices,IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger)
+        public static AppFacade GetInstance(IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger)
         {
             if (_instance is null)
             {
@@ -112,7 +113,29 @@ namespace ConverterPDF.Services
         {
             try
             {
-                pathFilesForUnite = _pathFilesServices.GetPathFiles(defaultExtUnite, filterFileUnite, initialDirectory);
+                var pathFiles = _pathFilesServices.GetPathFiles(defaultExtUnite, filterFileUnite, initialDirectory);
+
+                if (pathFiles is not null)
+                    pathFilesForUnite.AddRange(pathFiles);
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
+        }
+        public void UnitePdf()
+        {
+            if (pathFilesForUnite.Count < 2)
+            {
+                _messageUser.Warning("Количество файлов для объединения должно быть не менее 2");
+                return;
+            }
+
+            try
+            {
+                Task.Run(() => _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), outputUnitePdf));
+                _messageUser.Info("Файлы успешно объединены!");
             }
             catch (Exception ex)
             {

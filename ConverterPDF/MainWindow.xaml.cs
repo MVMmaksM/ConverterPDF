@@ -63,5 +63,10 @@ namespace ConverterPDF
         {
             _appFacade.GetPathForUnite();
         }
+
+        private void UnitePdf_Click(object sender, RoutedEventArgs e)
+        {
+            _appFacade.UnitePdf();
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace ConverterPDF.Services
     {
         public void UnitePdfFiles(List<string> pathFiles, string outputPathFile)
         {
-            PdfDocument.MergeFiles(pathFiles.ToArray(), outputPathFile);
+            PdfDocument.MergeFiles(pathFiles.ToArray(), outputPathFile);            
         }
     }
 }
