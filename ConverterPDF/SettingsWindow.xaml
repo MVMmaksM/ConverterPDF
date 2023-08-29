@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConverterPDF"
         mc:Ignorable="d"
-        Title="Настройки" Height="478" Width="800">
+        Title="Настройки" Height="478" Width="800" ResizeMode="NoResize">
     <Grid UseLayoutRounding="True" Background="AliceBlue">
         <GroupBox Margin="10,10,10,0" Header="Общие настройки" Height="147" VerticalAlignment="Top">
             <Grid>
