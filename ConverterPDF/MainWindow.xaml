@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConverterPDF"
         mc:Ignorable="d"
-        Title="ConverterPDF" Height="603" Width="600" ResizeMode="NoResize">
-    <Grid UseLayoutRounding="True" Background="AliceBlue">
+        Title="ConverterPDF" Height="603" Width="600" ResizeMode="NoResize" Closed="Window_Closed">
+    <Grid UseLayoutRounding="True" Background="AliceBlue" Loaded="Grid_Loaded">
         <Menu Height="25" VerticalAlignment="Top" Background="#086499" Foreground="WhiteSmoke">
             <MenuItem Header="Logs" Height="25">
                 <MenuItem Header="Открыть текущий log-файл" Background="#086499" Foreground="WhiteSmoke" Click="MenuOpenCurrentLog_Click"/>
@@ -29,7 +29,7 @@
                             <DropShadowEffect Color="Black" Direction="290" ShadowDepth="3" Opacity="0.6"/>
                         </Button.Effect>
                     </Button>
-                    <Label Content="Только форматы: *.xlsx,*.docx,*.pptx" Height="25" Width="250" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Только форматы: *.xls, *.xlsx, *.doc, *.docx, *.pptx" Height="25" Width="299" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="ConvertToPDF" Click="ConvertToPDF_Click" Content="Конвертировать в PDF" Width="250" Height="25" Margin="0,11,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#0896fe" Foreground="WhiteSmoke">
                         <Button.Resources>
                             <Style TargetType="Border">

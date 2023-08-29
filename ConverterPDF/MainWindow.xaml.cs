@@ -26,13 +26,16 @@ namespace ConverterPDF
         private static ILogger _logger = LogManager.GetCurrentClassLogger();
         private static IMessageUser _messageUser = new MessageUser();
         private static AppFacade _appFacade;
+        private static IShowInfoUserServices _showInfoUserServices = new ShowInfoUserServices();
         public MainWindow()
         {
             InitializeComponent();
-            _logger.Info("Запуск приложения");
+            _logger.Info("Запуск приложения");            
 
-            _appFacade = AppFacade.GetInstance(new UnitePdfFilesServices(), new ConvertPdfServices(), new GetPathFilesServices(), new LogsServices(_logger, _messageUser), _messageUser, _logger);
+            _showInfoUserServices.AppFacadeNotify += ShowInfo;
 
+            _appFacade = AppFacade.GetInstance(new UnitePdfFilesServices(), new ConvertPdfServices(),
+                new GetPathFilesServices(), new LogsServices(_logger, _messageUser), _messageUser, _logger, _showInfoUserServices);
         }
         private void MenuOpenCurrentLog_Click(object sender, RoutedEventArgs e)
         {
@@ -67,6 +70,17 @@ namespace ConverterPDF
         private void UnitePdf_Click(object sender, RoutedEventArgs e)
         {
             _appFacade.UnitePdf();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _logger.Info("Закрытие программы");
+        }
+        private void ShowInfo(string message) => Info.Text += message;
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
