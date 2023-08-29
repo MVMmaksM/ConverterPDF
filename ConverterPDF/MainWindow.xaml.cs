@@ -74,7 +74,7 @@ namespace ConverterPDF
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            _logger.Info("Закрытие программы");
+            _logger.Info("Закрытие приложения");
         }
         private void ShowInfo(string message) => Info.Text += message;
 
