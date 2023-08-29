@@ -23,19 +23,19 @@ namespace ConverterPDF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static ILogger _logger = LogManager.GetCurrentClassLogger();
-        private static IMessageUser _messageUser = new MessageUser();
-        private static AppFacade _appFacade;
-        private static IShowInfoUserServices _showInfoUserServices = new ShowInfoUserServices();
-        public MainWindow()
+        private static ILoggerServices _logger;   
+        private static IAppFacade _appFacade;
+        private static IShowInfoUserServices _showInfoUserServices;
+        public MainWindow(IAppFacade appFacade, ILoggerServices loggerServices, IShowInfoUserServices showInfoUserServices)
         {
             InitializeComponent();
-            _logger.Info("Запуск приложения");            
 
+            _logger = loggerServices;
+            _logger.Info("Запуск приложения");
+
+            _showInfoUserServices = showInfoUserServices;
             _showInfoUserServices.AppFacadeNotify += ShowInfo;
-
-            _appFacade = AppFacade.GetInstance(new ShowAboutServices(_logger, _messageUser),new UnitePdfFilesServices(), new ConvertPdfServices(),
-                new GetPathFilesServices(), new LogsServices(_logger, _messageUser), _messageUser, _logger, _showInfoUserServices);
+            _appFacade = appFacade;            
         }
         private void MenuOpenCurrentLog_Click(object sender, RoutedEventArgs e)
         {

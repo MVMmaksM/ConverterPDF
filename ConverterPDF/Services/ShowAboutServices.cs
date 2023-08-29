@@ -10,10 +10,10 @@ namespace ConverterPDF.Services
 {
     public class ShowAboutServices : IShowAboutServices
     {
-        private static ILogger _logger;
+        private static ILoggerServices _logger;
         private static IMessageUser _messageUser;
 
-        public ShowAboutServices(ILogger logger, IMessageUser messageUser)
+        public ShowAboutServices(ILoggerServices logger, IMessageUser messageUser)
         {
             _logger = logger;
             _messageUser = messageUser;

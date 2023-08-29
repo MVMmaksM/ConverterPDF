@@ -12,10 +12,10 @@ namespace ConverterPDF.Services
 {
     internal class LogsServices : ILogsServices
     {
-        private static ILogger _logger;
+        private static ILoggerServices _logger;
         private static IMessageUser _messageUser;
 
-        public LogsServices(ILogger logger, IMessageUser messageUser)
+        public LogsServices(ILoggerServices logger, IMessageUser messageUser)
         {
             _logger = logger;
             _messageUser = messageUser;

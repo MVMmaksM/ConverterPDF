@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConverterPDF.Services
 {
-    public class AppFacade
+    public class AppFacade : IAppFacade
     {
         private IConvertPdfServices _converterPdf;
         private IGetPathFilesServices _pathFilesServices;
@@ -17,7 +17,7 @@ namespace ConverterPDF.Services
         private IUnitePdfFileServices _unitePdfFileServices;
         private IShowInfoUserServices _showInfoUserServices;
         private IShowAboutServices _showAboutServices;
-        private static ILogger _logger;
+        private static ILoggerServices _logger;
         private static AppFacade _instance;
         private List<string> pathFilesForConverting = new List<string>();
         private List<string> pathFilesForUnite = new List<string>();
@@ -31,7 +31,7 @@ namespace ConverterPDF.Services
         private string outputUnitePdf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "unite.pdf");
         private string pathAboubtFile = Path.Combine(Environment.CurrentDirectory, "About", "About.txt");
 
-        private AppFacade(IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger, IShowInfoUserServices showInfoUserServices)
+        public AppFacade(IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILoggerServices logger, IShowInfoUserServices showInfoUserServices)
         {
             _unitePdfFileServices = unitePdfFileServices;
             _converterPdf = convertPdfServices;
@@ -41,18 +41,7 @@ namespace ConverterPDF.Services
             _logger = logger;
             _showInfoUserServices = showInfoUserServices;
             _showAboutServices = showAboutServices;
-        }
-
-        public static AppFacade GetInstance(IShowAboutServices showAboutServices,IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger, IShowInfoUserServices showInfoUserServices)
-        {
-            if (_instance is null)
-            {
-                _instance = new AppFacade(showAboutServices, unitePdfFileServices, convertPdfServices, getPathFilesServices, logsServices, messageUser, logger, showInfoUserServices);
-            }
-
-            return _instance;
-        }
-
+        }      
         public void GetPathForConverting()
         {
             try
