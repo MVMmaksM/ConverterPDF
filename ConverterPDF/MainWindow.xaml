@@ -13,7 +13,7 @@
                 <MenuItem Header="Открыть папку с log-файлами" Background="#086499" Foreground="WhiteSmoke" Click="MenuOpenFolderLog_Click"/>
                 <MenuItem Header="Удалить все log-файлы" Background="#086499" Foreground="WhiteSmoke" Click="MenuDeleteAllLogs_Click"/>
             </MenuItem>
-            <MenuItem Header="Настройки"/>
+            <MenuItem Header="Настройки" Click="MenuOpenSettings_Click"/>
             <MenuItem Header="О программе" Click="MenuAbout_Click"/>
         </Menu>
         <StackPanel Margin="0,25,0,0" Height="534" VerticalAlignment="Top">

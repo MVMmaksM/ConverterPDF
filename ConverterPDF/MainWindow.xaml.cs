@@ -86,5 +86,9 @@ namespace ConverterPDF
         {
             _appFacade.ShowAbout();
         }
+        private void MenuOpenSettings_Click(object sender, RoutedEventArgs e)
+        {
+            _appFacade.ShowSettings(this);
+        }
     }
 }

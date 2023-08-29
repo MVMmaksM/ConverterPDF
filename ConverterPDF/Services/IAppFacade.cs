@@ -16,5 +16,6 @@ namespace ConverterPDF.Services
         void GetPathForUnite();
         void UnitePdf();
         void ShowAbout();
+        void ShowSettings(MainWindow mainWindow);
     }
 }

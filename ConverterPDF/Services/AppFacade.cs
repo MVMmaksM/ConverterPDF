@@ -17,8 +17,7 @@ namespace ConverterPDF.Services
         private IUnitePdfFileServices _unitePdfFileServices;
         private IShowInfoUserServices _showInfoUserServices;
         private IShowAboutServices _showAboutServices;
-        private static ILoggerServices _logger;
-        private static AppFacade _instance;
+        private static ILoggerServices _logger;   
         private List<string> pathFilesForConverting = new List<string>();
         private List<string> pathFilesForUnite = new List<string>();
         private static string pathFolderLogs = $"{Environment.CurrentDirectory}\\logs";
@@ -153,5 +152,11 @@ namespace ConverterPDF.Services
             }
         }
         public void ShowAbout() => _showAboutServices.ShowAbout(pathAboubtFile);
+        public void ShowSettings(MainWindow mainWindow) 
+        {
+            var settingWindow = new SettingsWindow();
+            settingWindow.Owner = mainWindow;
+            settingWindow.Show();
+        }
     }
 }
