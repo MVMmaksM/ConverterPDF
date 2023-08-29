@@ -61,7 +61,7 @@ namespace ConverterPDF.Services
             }
         }
 
-        public void ConvertPdf()
+        public async void ConvertPdf()
         {
             if (pathFilesForConverting is null || pathFilesForConverting.Count == 0)
             {
@@ -84,19 +84,19 @@ namespace ConverterPDF.Services
                 if (pathExcelFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Excel");
-                    Task.Run(() => _converterPdf.ConvertExcelToPdf(pathExcelFiles));
+                    await Task.Run(() => _converterPdf.ConvertExcelToPdf(pathExcelFiles));
                 }
 
                 if (pathWordFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Word");
-                    Task.Run(() => _converterPdf.ConvertWordToPdf(pathWordFiles));
+                    await Task.Run(() => _converterPdf.ConvertWordToPdf(pathWordFiles));
                 }
 
                 if (pathPowerPointFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Power Point");
-                    Task.Run(() => _converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles));
+                    await Task.Run(() => _converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles));
                 }
             }
             catch (Exception ex)
@@ -124,7 +124,7 @@ namespace ConverterPDF.Services
                 _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
             }
         }
-        public void UnitePdf()
+        public async void UnitePdf()
         {
             if (pathFilesForUnite.Count < 2)
             {
@@ -134,8 +134,9 @@ namespace ConverterPDF.Services
 
             try
             {
-                 _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), outputUnitePdf);
+                await Task.Run(() => _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), outputUnitePdf));
                 _messageUser.Info("Файлы успешно объединены!");
+
             }
             catch (Exception ex)
             {

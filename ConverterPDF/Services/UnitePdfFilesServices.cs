@@ -18,8 +18,8 @@ namespace ConverterPDF.Services
 
             using (FileStream fileStream = new FileStream(outputPathFile, FileMode.Create))
             {
-                var pdfWriter = new PdfCopy(pdfDoc, fileStream);
-                if (pdfWriter == null)
+                var PDFwriter = new PdfCopy(pdfDoc, fileStream);
+                if (PDFwriter == null)
                 {
                     return;
                 }
@@ -33,14 +33,14 @@ namespace ConverterPDF.Services
 
                     for (int i = 1; i <= pdfReader.NumberOfPages; i++)
                     {
-                        var page = pdfWriter.GetImportedPage(pdfReader, i);
-                        pdfWriter.AddPage(page);
+                        var page = PDFwriter.GetImportedPage(pdfReader, i);
+                        PDFwriter.AddPage(page);
                     }
 
                     pdfReader.Close();
                 }
 
-                pdfWriter.Close();
+                PDFwriter.Close();
                 pdfDoc.Close();
             }
         }
