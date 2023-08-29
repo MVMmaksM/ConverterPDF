@@ -52,7 +52,11 @@ namespace ConverterPDF.Services
         {
             try
             {
-                pathFilesForConverting = _pathFilesServices.GetPathFiles(defaultExtConverting, filterFileConverting, initialDirectory);
+                var pathFiles = _pathFilesServices.GetPathFiles(defaultExtConverting, filterFileConverting, initialDirectory);
+                if (pathFiles is not null)
+                {
+                    pathFilesForConverting.AddRange(pathFiles);
+                }
             }
             catch (Exception ex)
             {
@@ -98,6 +102,8 @@ namespace ConverterPDF.Services
                     _logger.Info("Конвертация Power Point");
                     await Task.Run(() => _converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles));
                 }
+
+                _messageUser.Info("Конвертация успешно выполнена!");
             }
             catch (Exception ex)
             {
