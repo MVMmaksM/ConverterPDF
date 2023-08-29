@@ -34,7 +34,7 @@ namespace ConverterPDF
 
             _showInfoUserServices.AppFacadeNotify += ShowInfo;
 
-            _appFacade = AppFacade.GetInstance(new UnitePdfFilesServices(), new ConvertPdfServices(),
+            _appFacade = AppFacade.GetInstance(new ShowAboutServices(_logger, _messageUser),new UnitePdfFilesServices(), new ConvertPdfServices(),
                 new GetPathFilesServices(), new LogsServices(_logger, _messageUser), _messageUser, _logger, _showInfoUserServices);
         }
         private void MenuOpenCurrentLog_Click(object sender, RoutedEventArgs e)
@@ -81,6 +81,10 @@ namespace ConverterPDF
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             
+        }      
+        private void MenuAbout_Click(object sender, RoutedEventArgs e)
+        {
+            _appFacade.ShowAbout();
         }
     }
 }

@@ -14,7 +14,7 @@
                 <MenuItem Header="Удалить все log-файлы" Background="#086499" Foreground="WhiteSmoke" Click="MenuDeleteAllLogs_Click"/>
             </MenuItem>
             <MenuItem Header="Настройки"/>
-            <MenuItem Header="О программе"/>
+            <MenuItem Header="О программе" Click="MenuAbout_Click"/>
         </Menu>
         <StackPanel Margin="0,25,0,0" Height="534" VerticalAlignment="Top">
             <GroupBox Header="Конвертер" Height="88" Width="580" BorderBrush="#FF88898A">

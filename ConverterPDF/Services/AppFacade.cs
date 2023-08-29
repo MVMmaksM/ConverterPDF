@@ -16,6 +16,7 @@ namespace ConverterPDF.Services
         private IMessageUser _messageUser;
         private IUnitePdfFileServices _unitePdfFileServices;
         private IShowInfoUserServices _showInfoUserServices;
+        private IShowAboutServices _showAboutServices;
         private static ILogger _logger;
         private static AppFacade _instance;
         private List<string> pathFilesForConverting = new List<string>();
@@ -28,8 +29,9 @@ namespace ConverterPDF.Services
         private string defaultExtConverting = ".xlsx|.pptx|.docx";
         private string defaultExtUnite = ".pdf";
         private string outputUnitePdf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "unite.pdf");
+        private string pathAboubtFile = Path.Combine(Environment.CurrentDirectory, "About", "About.txt");
 
-        private AppFacade(IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger, IShowInfoUserServices showInfoUserServices)
+        private AppFacade(IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger, IShowInfoUserServices showInfoUserServices)
         {
             _unitePdfFileServices = unitePdfFileServices;
             _converterPdf = convertPdfServices;
@@ -38,13 +40,14 @@ namespace ConverterPDF.Services
             _messageUser = messageUser;
             _logger = logger;
             _showInfoUserServices = showInfoUserServices;
+            _showAboutServices = showAboutServices;
         }
 
-        public static AppFacade GetInstance(IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger, IShowInfoUserServices showInfoUserServices)
+        public static AppFacade GetInstance(IShowAboutServices showAboutServices,IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILogger logger, IShowInfoUserServices showInfoUserServices)
         {
             if (_instance is null)
             {
-                _instance = new AppFacade(unitePdfFileServices, convertPdfServices, getPathFilesServices, logsServices, messageUser, logger, showInfoUserServices);
+                _instance = new AppFacade(showAboutServices, unitePdfFileServices, convertPdfServices, getPathFilesServices, logsServices, messageUser, logger, showInfoUserServices);
             }
 
             return _instance;
@@ -160,5 +163,6 @@ namespace ConverterPDF.Services
                 _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
             }
         }
+        public void ShowAbout() => _showAboutServices.ShowAbout(pathAboubtFile);
     }
 }
