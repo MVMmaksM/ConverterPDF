@@ -9,8 +9,8 @@
     <Grid UseLayoutRounding="True" Background="AliceBlue">
         <GroupBox Margin="10,10,10,0" Header="Общие настройки" Height="147" VerticalAlignment="Top">
             <Grid>
-                <Label Height="25" VerticalAlignment="Top" Margin="10,10,511,0" Content="Путь к папке log-файлов:"/>
-                <Label Height="26" VerticalAlignment="Top" Margin="10,81,511,0" Content="Директория открытия файлов для выбора:"/>
+                <Label Height="27" VerticalAlignment="Top" Margin="10,10,0,0" Content="Путь к папке log-файлов:" HorizontalAlignment="Left" Width="247"/>
+                <Label Height="26" VerticalAlignment="Top" Margin="10,81,0,0" Content="Директория открытия файлов для выбора:" HorizontalAlignment="Left" Width="247"/>
                 <Label Height="26" VerticalAlignment="Top" Margin="10,40,511,0" Content="Путь к файлу About:"/>
                 <TextBox Height="25" Margin="262,11,10,86" x:Name="TxBxPathFolderLogs"/>
                 <TextBox Height="25" Margin="262,41,10,56" x:Name="TxBxPathAbout"/>
@@ -19,21 +19,21 @@
         </GroupBox>
         <GroupBox Margin="10,160,10,0" Header="Настройки конвертации" Height="103" VerticalAlignment="Top">
             <Grid>
-                <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Top" Margin="10,10,524,0"/>
-                <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,42,524,0"/>
+                <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="234"/>
+                <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,42,0,0" HorizontalAlignment="Left" Width="234"/>
                 <ComboBox Height="25" Margin="264,10,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenExcel"/>
                 <ComboBox Height="25" Margin="264,42,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord"/>
             </Grid>
         </GroupBox>
         <GroupBox Margin="10,270,10,0" Header="Настройки объединения" Height="102" VerticalAlignment="Top">
             <Grid>
-                <Label Height="25" VerticalAlignment="Top" Margin="10,10,499,0" Content="Директория сохранения объединенного pdf:"/>
+                <Label Height="25" VerticalAlignment="Top" Margin="10,10,0,0" Content="Директория сохранения объединенного pdf:" HorizontalAlignment="Left" Width="259"/>
                 <Label Height="25" VerticalAlignment="Top" Margin="10,40,499,0" Content="Имя объединенного pdf:"/>
                 <ComboBox Height="25" Margin="274,12,10,0" VerticalAlignment="Top" x:Name="CmbBxFolderSaveUnitePdf"/>
                 <TextBox Height="25" Margin="274,42,10,0" VerticalAlignment="Top" x:Name="NameUniteFilePdf"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="SavwSettings" Click="LoadPdfForUnite_Click" Height="25" Width="250" HorizontalAlignment="Center" Margin="0,396,0,0" Content="Сохранить" Background="#0896fe" Foreground="WhiteSmoke" VerticalAlignment="Top">
+        <Button x:Name="SavwSettings" Click="SaveSettings_Click" Width="250" HorizontalAlignment="Center" Margin="0,0,0,41" Content="Сохранить" Background="#0896fe" Foreground="WhiteSmoke" Height="25" VerticalAlignment="Bottom">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="2"/>
