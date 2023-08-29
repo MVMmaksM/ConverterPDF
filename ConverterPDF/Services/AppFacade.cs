@@ -134,7 +134,7 @@ namespace ConverterPDF.Services
 
             try
             {
-                Task.Run(() => _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), outputUnitePdf));
+                 _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), outputUnitePdf);
                 _messageUser.Info("Файлы успешно объединены!");
             }
             catch (Exception ex)
