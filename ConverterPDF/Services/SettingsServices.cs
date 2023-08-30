@@ -1,4 +1,5 @@
 ﻿using ConverterPDF.Settings;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,7 @@ namespace ConverterPDF.Services
 {
     public class SettingsServices : ISettingsServices
     {
+        private static string pathSettings = Path.Combine(Environment.CurrentDirectory, "Settings.json");
         public SettingsModel CreateDefaultSettings() => new SettingsModel()
         {
             PathFolderLogs = Path.Combine(Environment.CurrentDirectory, "logs"),
@@ -23,12 +25,27 @@ namespace ConverterPDF.Services
 
         public SettingsModel GetSettings()
         {
-            throw new NotImplementedException();
+            if (!File.Exists(pathSettings))
+            {
+                var settings = CreateDefaultSettings();
+                SaveSettings(settings);
+                return settings;
+            }
+
+            using (var strReader = new StreamReader(pathSettings))
+            {
+                var strSettings = strReader.ReadToEnd();
+                return JsonConvert.DeserializeObject<SettingsModel>(strSettings);
+            }
         }
 
         public void SaveSettings(SettingsModel settings)
         {
-            throw new NotImplementedException();
+            var strSettings = JsonConvert.SerializeObject(settings);
+            using (var strWriter = new StreamWriter(new FileStream(pathSettings, FileMode.Create)))
+            {
+                strWriter.WriteLine(strSettings);
+            }
         }
     }
 }

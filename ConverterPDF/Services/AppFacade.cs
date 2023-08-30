@@ -40,7 +40,17 @@ namespace ConverterPDF.Services
             _showInfoUserServices = showInfoUserServices;
             _showAboutServices = showAboutServices;
             _settingsServices = settingsServices;
-            _settings = _settingsServices.CreateDefaultSettings();
+
+            try
+            {
+                _logger.Info("Получение настроек");
+                _settings = _settingsServices.GetSettings();
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
         }
         public void GetPathForConverting()
         {
@@ -90,7 +100,7 @@ namespace ConverterPDF.Services
                 if (pathWordFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Word");
-                    await Task.Run(() => _converterPdf.ConvertWordToPdf(pathWordFiles));
+                    await Task.Run(() => _converterPdf.ConvertWordToPdf(pathWordFiles, _settings.SelectedIsVisibleWord.Value));
                 }
 
                 if (pathPowerPointFiles.Count > 0)
@@ -145,7 +155,7 @@ namespace ConverterPDF.Services
 
             try
             {
-                var fullNameOutputPdf = Path.Combine(_settings.SelectedPathSavePdf.Value, _settings.NameUnitePdf, ".pdf");
+                var fullNameOutputPdf = Path.Combine(_settings.SelectedPathSavePdf.Value, $"{_settings.NameUnitePdf}.pdf");
 
                 await Task.Run(() => _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), fullNameOutputPdf));
                 _messageUser.Info("Файлы успешно объединены!");
@@ -161,7 +171,7 @@ namespace ConverterPDF.Services
         public void ShowAbout() => _showAboutServices.ShowAbout(_settings.PathAbout);
         public void ShowSettings(MainWindow mainWindow)
         {
-            var settingWindow = new SettingsWindow(_settings);
+            var settingWindow = new SettingsWindow(_settings, _settingsServices, _messageUser);
             settingWindow.Owner = mainWindow;
             settingWindow.Show();
         }

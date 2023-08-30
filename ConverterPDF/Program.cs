@@ -14,14 +14,14 @@ namespace ConverterPDF
     public class Program
     {
         [STAThread]
-        public static void Main() 
+        public static void Main()
         {
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices(services =>
                 {
                     services.AddSingleton<App>();
                     services.AddSingleton<MainWindow>();
-                    services.AddSingleton<IAppFacade,AppFacade>();
+                    services.AddSingleton<IAppFacade, AppFacade>();
                     services.AddSingleton<IConvertPdfServices, ConvertPdfServices>();
                     services.AddSingleton<IGetPathFilesServices, GetPathFilesServices>();
                     services.AddSingleton<ILogsServices, LogsServices>();

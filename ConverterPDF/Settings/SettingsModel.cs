@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConverterPDF.Settings
 {
-    public class SettingsModel : IDataErrorInfo, INotifyPropertyChanged
+    public class SettingsModel : INotifyPropertyChanged
     {
         private string _pathFolderLogs;
         private string _pathAbout;
@@ -111,7 +111,7 @@ namespace ConverterPDF.Settings
             }
         }
 
-        public string Error => throw new NotImplementedException();
+        //public string Error => throw new NotImplementedException();
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

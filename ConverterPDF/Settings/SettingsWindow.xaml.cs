@@ -1,4 +1,5 @@
-﻿using ConverterPDF.Settings;
+﻿using ConverterPDF.Services;
+using ConverterPDF.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,17 +22,24 @@ namespace ConverterPDF
     public partial class SettingsWindow : Window
     {
         private SettingsModel _settingsModel;
-        public SettingsWindow(SettingsModel settings)
+        private ISettingsServices _settingsServices;
+        private IMessageUser _messageUser;
+        private ILoggerServices _logger;
+        public SettingsWindow(SettingsModel settings, ISettingsServices settingsServices, IMessageUser messageUser, ILoggerServices logger)
         {
-            InitializeComponent();           
+            InitializeComponent();
 
+            _logger = logger;
+            _messageUser = messageUser;
             _settingsModel = settings;
-            this.DataContext = settings;
+            _settingsServices = settingsServices;
+
+            this.DataContext = _settingsModel;
 
             CmbBxPathFolderFile.DataContext = settings;
             CmbBxPathFolderFile.ItemsSource = SpecialFolders.Folders;
             CmbBxPathFolderFile.DisplayMemberPath = "Key";
-       
+
 
             CmbBxIsOpenExcel.DataContext = settings;
             CmbBxIsOpenExcel.ItemsSource = VisibleFileConverting.IsVisible;
@@ -45,12 +53,21 @@ namespace ConverterPDF
 
             CmbBxFolderSaveUnitePdf.DataContext = settings;
             CmbBxFolderSaveUnitePdf.ItemsSource = SpecialFolders.Folders;
-            CmbBxFolderSaveUnitePdf.DisplayMemberPath = "Key";            
+            CmbBxFolderSaveUnitePdf.DisplayMemberPath = "Key";
         }
 
         private void SaveSettings_Click(object sender, RoutedEventArgs e)
         {
-           var s = _settingsModel;
+            try
+            {
+                _settingsServices.SaveSettings(_settingsModel);
+                _messageUser.Info("Настройки успешно сохранены!");
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
         }
     }
 }
