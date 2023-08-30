@@ -20,7 +20,7 @@ namespace ConverterPDF
         {
             mainWindow.Show();  // отображаем главное окно на экране
             base.OnStartup(e);
-            //this.ShutdownMode = ShutdownMode.OnExplicitShutdown; // не закрывает главное окно при закрытии дочернего
+            ShutdownMode = ShutdownMode.OnExplicitShutdown; // не закрывает главное окно при закрытии дочернего
         }
     }
 }

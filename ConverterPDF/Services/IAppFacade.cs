@@ -17,5 +17,7 @@ namespace ConverterPDF.Services
         void UnitePdf();
         void ShowAbout();
         void ShowSettings(MainWindow mainWindow);
+        void ClearSelectFileConvert(MainWindow mainWindow);
+        void ClearSelectFileUnite(MainWindow mainWindow);
     }
 }

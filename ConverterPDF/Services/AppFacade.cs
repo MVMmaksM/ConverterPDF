@@ -73,7 +73,7 @@ namespace ConverterPDF.Services
         {
             if (pathFilesForConverting is null || pathFilesForConverting.Count == 0)
             {
-                _messageUser.Warning("Не загружено ни одного файла!");
+                _messageUser.Warning("Не выбрано ни одного файла!");
                 return;
             }
 
@@ -171,9 +171,35 @@ namespace ConverterPDF.Services
         public void ShowAbout() => _showAboutServices.ShowAbout(_settings.PathAbout);
         public void ShowSettings(MainWindow mainWindow)
         {
-            var settingWindow = new SettingsWindow(_settings, _settingsServices, _messageUser);
+            var settingWindow = new SettingsWindow(_settings, _settingsServices, _messageUser, _logger);
             settingWindow.Owner = mainWindow;
             settingWindow.Show();
+        }
+        public void ClearSelectFileConvert(MainWindow mainWindow)
+        {
+            try
+            {
+                mainWindow.Info.Clear();
+                pathFilesForConverting.Clear();
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
+        }
+        public void ClearSelectFileUnite(MainWindow mainWindow)
+        {
+            try
+            {
+                mainWindow.Info.Clear();
+                pathFilesForUnite.Clear();
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
         }
     }
 }

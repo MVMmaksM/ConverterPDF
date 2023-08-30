@@ -61,7 +61,7 @@ namespace ConverterPDF
             try
             {
                 _settingsServices.SaveSettings(_settingsModel);
-                _messageUser.Info("Настройки успешно сохранены!");
+                _messageUser.Info("Настройки успешно сохранены!");           
             }
             catch (Exception ex)
             {
