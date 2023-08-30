@@ -1,4 +1,6 @@
-﻿using NLog;
+﻿using ConverterPDF.Settings;
+using NLog;
+using NLog.Fluent;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,20 +19,17 @@ namespace ConverterPDF.Services
         private IUnitePdfFileServices _unitePdfFileServices;
         private IShowInfoUserServices _showInfoUserServices;
         private IShowAboutServices _showAboutServices;
-        private static ILoggerServices _logger;   
+        private static ILoggerServices _logger;
+        private static ISettingsServices _settingsServices;
+        private static SettingsModel _settings;
         private List<string> pathFilesForConverting = new List<string>();
         private List<string> pathFilesForUnite = new List<string>();
-        private static string pathFolderLogs = $"{Environment.CurrentDirectory}\\logs";
-        private static string pathCurrentLogFile = $"{pathFolderLogs}\\{DateTime.Now.ToString("yyyy-MM-dd")}.log";
         private string filterFileConverting = "Microsoft Excel|*.xlsx;*.xls|Microsoft Word|*.docx;*.doc|Power Point|*.pptx|Все файлы|*.xlsx;*.xls;*.docx;*.doc;*.pptx";
         private string filterFileUnite = "PDF|*.pdf";
-        private string initialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         private string defaultExtConverting = ".xlsx|.pptx|.docx";
         private string defaultExtUnite = ".pdf";
-        private string outputUnitePdf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "unite.pdf");
-        private string pathAboubtFile = Path.Combine(Environment.CurrentDirectory, "About", "About.txt");
 
-        public AppFacade(IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILoggerServices logger, IShowInfoUserServices showInfoUserServices)
+        public AppFacade(ISettingsServices settingsServices, IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILoggerServices logger, IShowInfoUserServices showInfoUserServices)
         {
             _unitePdfFileServices = unitePdfFileServices;
             _converterPdf = convertPdfServices;
@@ -40,12 +39,14 @@ namespace ConverterPDF.Services
             _logger = logger;
             _showInfoUserServices = showInfoUserServices;
             _showAboutServices = showAboutServices;
-        }      
+            _settingsServices = settingsServices;
+            _settings = _settingsServices.CreateDefaultSettings();
+        }
         public void GetPathForConverting()
         {
             try
             {
-                var pathFiles = _pathFilesServices.GetPathFiles(defaultExtConverting, filterFileConverting, initialDirectory);
+                var pathFiles = _pathFilesServices.GetPathFiles(defaultExtConverting, filterFileConverting, _settings.SelectedPathFolderOpenFile.Value);
                 if (pathFiles is not null)
                 {
                     pathFilesForConverting.AddRange(pathFiles);
@@ -83,7 +84,7 @@ namespace ConverterPDF.Services
                 if (pathExcelFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Excel");
-                    await Task.Run(() => _converterPdf.ConvertExcelToPdf(pathExcelFiles));
+                    await Task.Run(() => _converterPdf.ConvertExcelToPdf(pathExcelFiles, _settings.SelectedIsVisibleExcel.Value));
                 }
 
                 if (pathWordFiles.Count > 0)
@@ -107,14 +108,18 @@ namespace ConverterPDF.Services
                 _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
             }
         }
-        public void OpenCurrentLogFile() => _logsService.OpenCurrentLogFile(pathCurrentLogFile);
-        public void OpenFolderLogs() => _logsService.OpenFolderLogs(pathFolderLogs);
-        public void DeleteAllLogFiles() => _logsService.DeleteAllLogFiles(pathFolderLogs);
+        public void OpenCurrentLogFile()
+        {
+            var fullNameCurrentLog = Path.Combine(_settings.PathFolderLogs, $"{DateTime.Now.ToString("yyyy-MM-dd")}.log");
+            _logsService.OpenCurrentLogFile(fullNameCurrentLog);
+        }
+        public void OpenFolderLogs() => _logsService.OpenFolderLogs(_settings.PathFolderLogs);
+        public void DeleteAllLogFiles() => _logsService.DeleteAllLogFiles(_settings.PathFolderLogs);
         public void GetPathForUnite()
         {
             try
             {
-                var pathFiles = _pathFilesServices.GetPathFiles(defaultExtUnite, filterFileUnite, initialDirectory);
+                var pathFiles = _pathFilesServices.GetPathFiles(defaultExtUnite, filterFileUnite, _settings.SelectedPathFolderOpenFile.Value);
 
                 if (pathFiles is not null)
                 {
@@ -140,7 +145,9 @@ namespace ConverterPDF.Services
 
             try
             {
-                await Task.Run(() => _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), outputUnitePdf));
+                var fullNameOutputPdf = Path.Combine(_settings.SelectedPathSavePdf.Value, _settings.NameUnitePdf, ".pdf");
+
+                await Task.Run(() => _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), fullNameOutputPdf));
                 _messageUser.Info("Файлы успешно объединены!");
                 _showInfoUserServices.ShowInfo("Объединение выполнено!\n");
 
@@ -151,10 +158,10 @@ namespace ConverterPDF.Services
                 _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
             }
         }
-        public void ShowAbout() => _showAboutServices.ShowAbout(pathAboubtFile);
-        public void ShowSettings(MainWindow mainWindow) 
+        public void ShowAbout() => _showAboutServices.ShowAbout(_settings.PathAbout);
+        public void ShowSettings(MainWindow mainWindow)
         {
-            var settingWindow = new SettingsWindow();
+            var settingWindow = new SettingsWindow(_settings);
             settingWindow.Owner = mainWindow;
             settingWindow.Show();
         }

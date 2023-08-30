@@ -30,22 +30,22 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <ComboBox Height="25" Margin="262,82,10,0" VerticalAlignment="Top" x:Name="CmbBxPathFolderFile" SelectedIndex="{Binding Path=IndexFolderOpenFile}"/>
+                <ComboBox Height="25" Margin="262,82,10,0" VerticalAlignment="Top" x:Name="CmbBxPathFolderFile" SelectedValue="{Binding Path=SelectedPathFolderOpenFile}"/>
             </Grid>
         </GroupBox>
         <GroupBox Margin="10,160,10,0" Header="Настройки конвертации" Height="103" VerticalAlignment="Top">
             <Grid>
                 <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="234"/>
                 <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,42,0,0" HorizontalAlignment="Left" Width="234"/>
-                <ComboBox Height="25" Margin="264,10,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenExcel" SelectedIndex="{Binding Path=IndexIsVisibleExcel}"/>
-                <ComboBox Height="25" Margin="264,42,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedIndex="{Binding Path=IndexIsVisibleWord}"/>
+                <ComboBox Height="25" Margin="264,10,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenExcel" SelectedValue="{Binding Path=SelectedIsVisibleExcel}"/>
+                <ComboBox Height="25" Margin="264,42,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedValue="{Binding Path=SelectedIsVisibleWord}"/>
             </Grid>
         </GroupBox>
         <GroupBox Margin="10,270,10,0" Header="Настройки объединения" Height="102" VerticalAlignment="Top">
             <Grid>
                 <Label Height="25" VerticalAlignment="Top" Margin="10,10,0,0" Content="Директория сохранения объединенного pdf:" HorizontalAlignment="Left" Width="259"/>
                 <Label Height="25" VerticalAlignment="Top" Margin="10,40,499,0" Content="Имя объединенного pdf:"/>
-                <ComboBox Height="25" Margin="274,12,10,0" VerticalAlignment="Top" x:Name="CmbBxFolderSaveUnitePdf" SelectedIndex="{Binding Path=IndexFolderSavePdf}"/>
+                <ComboBox Height="25" Margin="274,12,10,0" VerticalAlignment="Top" x:Name="CmbBxFolderSaveUnitePdf" SelectedValue="{Binding Path=SelectedPathSavePdf}"/>
                 <TextBox Height="25" Margin="274,42,10,0" VerticalAlignment="Top" x:Name="NameUniteFilePdf">
                     <TextBox.Text>
                         <Binding Path="NameUnitePdf">

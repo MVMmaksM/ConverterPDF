@@ -8,8 +8,8 @@ namespace ConverterPDF.Services
 {
     public interface IConvertPdfServices
     {
-        void ConvertWordToPdf(List<string> pathWordFiles);
-        void ConvertExcelToPdf(List<string> pathExcelFiles);
+        void ConvertWordToPdf(List<string> pathWordFiles, bool visible);
+        void ConvertExcelToPdf(List<string> pathExcelFiles, bool visible);
         void ConvertPowerPointToPdf(List<string> pathPowerPointFiles);
     }
 }

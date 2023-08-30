@@ -12,42 +12,48 @@ namespace ConverterPDF.Settings
     {
         private string _pathFolderLogs;
         private string _pathAbout;
-        private string _nameUnitePdf;
-        private int _indexFolderOpenFile;
-        private int _indexIsVisibleExcel;
-        private int _indexIsVisibleWord;
-        private int _indexFolderSavePdf;
+        private string _nameUnitePdf; 
+        private KeyValuePair<string, string> _selectedPathSavePdf;
+        private KeyValuePair<string, string> _selectedPathFolderOpenFile;
+        private KeyValuePair<string, bool> _selectedIsVisibleExcel;
+        private KeyValuePair<string, bool> _selectedIsVisibleWord;
 
-        public string this[string columnName]
+        public KeyValuePair<string, string> SelectedPathSavePdf
         {
-            get
+            get { return _selectedPathSavePdf; }
+            set 
             {
-                string error = string.Empty;
-                switch (columnName)
-                {
-                    case "PathFolderLogs":
-                        if (PathFolderLogs is null)
-                        {
-                            error = "Необходимо указать путь";
-                        }
-                        break;
-                    case "PathAbout":
-                        if (PathAbout is null)
-                        {
-                            error = "Необходимо указать путь";
-                        }
-                        break;
-                    case "NameUnitePdf":
-                        if (NameUnitePdf is null)
-                        {
-                            error = "Необходимо указать имя";
-                        }
-                        break;
-                }
-                return error;
+                _selectedPathSavePdf = value;
+                OnPropertyChanged("SelectedPathSavePdf");
             }
         }
-
+        public KeyValuePair<string, string> SelectedPathFolderOpenFile
+        {
+            get { return _selectedPathFolderOpenFile; }
+            set 
+            {
+                _selectedPathFolderOpenFile = value;
+                OnPropertyChanged("SelectedPathFolderOpenFile");
+            }
+        }
+        public KeyValuePair<string, bool> SelectedIsVisibleExcel
+        {
+            get { return _selectedIsVisibleExcel; }
+            set 
+            {
+                _selectedIsVisibleExcel = value;
+                OnPropertyChanged("SelectedIsVisibleExcel");
+            }
+        }
+        public KeyValuePair<string, bool> SelectedIsVisibleWord
+        {
+            get { return _selectedIsVisibleWord; }
+            set 
+            {
+                _selectedIsVisibleWord = value;
+                OnPropertyChanged("SelectedIsVisibleWord");
+            }
+        }      
         public string PathFolderLogs
         {
             get => _pathFolderLogs;
@@ -75,40 +81,33 @@ namespace ConverterPDF.Settings
                 OnPropertyChanged("NameUnitePdf");
             }
         }
-        public int IndexFolderOpenFile
+        public string this[string columnName]
         {
-            get { return _indexFolderOpenFile; }
-            set
+            get
             {
-                _indexFolderOpenFile = value;
-                OnPropertyChanged("IndexFolderOpenFile");
-            }
-        }
-        public int IndexIsVisibleExcel
-        {
-            get { return _indexIsVisibleExcel; }
-            set
-            {
-                _indexIsVisibleExcel = value;
-                OnPropertyChanged("IndexIsVisibleExcel");
-            }
-        }
-        public int IndexIsVisibleWord
-        {
-            get { return _indexIsVisibleWord; }
-            set
-            {
-                _indexIsVisibleWord = value;
-                OnPropertyChanged("IndexIsVisibleWord");
-            }
-        }
-        public int IndexFolderSavePdf
-        {
-            get { return _indexFolderSavePdf; }
-            set
-            {
-                _indexFolderSavePdf = value;
-                OnPropertyChanged("IndexFolderSavePdf");
+                string error = string.Empty;
+                switch (columnName)
+                {
+                    case "PathFolderLogs":
+                        if (string.IsNullOrWhiteSpace(PathFolderLogs))
+                        {
+                            error = "Необходимо указать путь";
+                        }
+                        break;
+                    case "PathAbout":
+                        if (string.IsNullOrWhiteSpace(PathAbout))
+                        {
+                            error = "Необходимо указать путь";
+                        }
+                        break;
+                    case "NameUnitePdf":
+                        if (string.IsNullOrWhiteSpace(NameUnitePdf))
+                        {
+                            error = "Необходимо указать имя";
+                        }
+                        break;
+                }
+                return error;
             }
         }
 

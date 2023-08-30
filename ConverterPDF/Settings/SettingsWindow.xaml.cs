@@ -20,45 +20,37 @@ namespace ConverterPDF
     /// </summary>
     public partial class SettingsWindow : Window
     {
-        public SettingsWindow()
+        private SettingsModel _settingsModel;
+        public SettingsWindow(SettingsModel settings)
         {
-            InitializeComponent();
-            var settigs = new SettingsModel()
-            {
-                PathFolderLogs = @"dfgfdgdfg\dfgd\fg\dfg",
-                PathAbout = @"fgdfg\df\gdf\g",
-                NameUnitePdf = "unite",
-                IndexFolderOpenFile = 1,
-                IndexFolderSavePdf = 2,
-                IndexIsVisibleExcel = 1,
-                IndexIsVisibleWord = 1
-            };
+            InitializeComponent();           
 
-            this.DataContext = settigs;
+            _settingsModel = settings;
+            this.DataContext = settings;
 
-            CmbBxPathFolderFile.DataContext = settigs;
+            CmbBxPathFolderFile.DataContext = settings;
             CmbBxPathFolderFile.ItemsSource = SpecialFolders.Folders;
             CmbBxPathFolderFile.DisplayMemberPath = "Key";
+       
 
-            CmbBxIsOpenExcel.DataContext = settigs;
+            CmbBxIsOpenExcel.DataContext = settings;
             CmbBxIsOpenExcel.ItemsSource = VisibleFileConverting.IsVisible;
             CmbBxIsOpenExcel.DisplayMemberPath = "Key";
 
 
-            CmbBxIsOpenWord.DataContext = settigs;
+            CmbBxIsOpenWord.DataContext = settings;
             CmbBxIsOpenWord.ItemsSource = VisibleFileConverting.IsVisible;
             CmbBxIsOpenWord.DisplayMemberPath = "Key";
 
 
-            CmbBxFolderSaveUnitePdf.DataContext = settigs;
+            CmbBxFolderSaveUnitePdf.DataContext = settings;
             CmbBxFolderSaveUnitePdf.ItemsSource = SpecialFolders.Folders;
-            CmbBxFolderSaveUnitePdf.DisplayMemberPath = "Key";
-            
+            CmbBxFolderSaveUnitePdf.DisplayMemberPath = "Key";            
         }
 
         private void SaveSettings_Click(object sender, RoutedEventArgs e)
         {
-
+           var s = _settingsModel;
         }
     }
 }

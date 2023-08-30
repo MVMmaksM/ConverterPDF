@@ -30,6 +30,7 @@ namespace ConverterPDF
                     services.AddSingleton<IShowInfoUserServices, ShowInfoUserServices>();
                     services.AddSingleton<IUnitePdfFileServices, UnitePdfFilesServices>();
                     services.AddSingleton<ILoggerServices, LoggerServices>();
+                    services.AddSingleton<ISettingsServices, SettingsServices>();
                 }).Build();
 
             var app = host.Services.GetService<App>();

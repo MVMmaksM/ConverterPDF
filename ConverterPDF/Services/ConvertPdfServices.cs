@@ -15,10 +15,10 @@ namespace ConverterPDF.Services
 {
     public class ConvertPdfServices : IConvertPdfServices
     {
-        public void ConvertExcelToPdf(List<string> pathExcelFiles)
+        public void ConvertExcelToPdf(List<string> pathExcelFiles, bool visible)
         {
             var appExcel = new Excel.Application();
-            appExcel.Visible = true;
+            appExcel.Visible = visible;
             Excel.Workbook workbook = null;
             var pathFileConverting = string.Empty;
 
@@ -72,10 +72,10 @@ namespace ConverterPDF.Services
                 appPowerPoint.Quit();
             }
         }
-        public void ConvertWordToPdf(List<string> pathWordFiles)
+        public void ConvertWordToPdf(List<string> pathWordFiles, bool visible)
         {
             var appWord = new Word.Application();
-            appWord.Visible = true;
+            appWord.Visible = visible;
             Word.Document document = null;
             var pathFileConverting = string.Empty;
 
