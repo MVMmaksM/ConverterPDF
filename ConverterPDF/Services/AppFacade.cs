@@ -23,6 +23,7 @@ namespace ConverterPDF.Services
         private static ISettingsServices _settingsServices;
         private static IVersionAppServices _versionAppServices;
         private static SettingsModel _settings;
+        private static IExistsFodersServices _existFoldersServices;
         private List<string> pathFilesForConverting = new List<string>();
         private List<string> pathFilesForUnite = new List<string>();
         private string filterFileConverting = "Microsoft Excel|*.xlsx;*.xls|Microsoft Word|*.docx;*.doc|Power Point|*.pptx|Все файлы|*.xlsx;*.xls;*.docx;*.doc;*.pptx";
@@ -30,7 +31,7 @@ namespace ConverterPDF.Services
         private string defaultExtConverting = ".xlsx|.pptx|.docx";
         private string defaultExtUnite = ".pdf";
 
-        public AppFacade(IVersionAppServices versionAppServices, ISettingsServices settingsServices, IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILoggerServices logger, IShowInfoUserServices showInfoUserServices)
+        public AppFacade(IExistsFodersServices existsFodersServices, IVersionAppServices versionAppServices, ISettingsServices settingsServices, IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILoggerServices logger, IShowInfoUserServices showInfoUserServices)
         {
             _unitePdfFileServices = unitePdfFileServices;
             _converterPdf = convertPdfServices;
@@ -42,6 +43,7 @@ namespace ConverterPDF.Services
             _showAboutServices = showAboutServices;
             _settingsServices = settingsServices;
             _versionAppServices = versionAppServices;
+            _existFoldersServices = existsFodersServices;
 
             try
             {
@@ -89,6 +91,16 @@ namespace ConverterPDF.Services
                 .Where(pathFile => Path.GetExtension(pathFile) is ".pptx")
                 .ToList();
 
+            try
+            {
+                _existFoldersServices.ExistAndCreateFolders(_settings); //проверка существования директории сохранения 
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
+
             _showInfoUserServices.ShowInfo("Выполенение конвертации\n");
 
             try
@@ -111,7 +123,7 @@ namespace ConverterPDF.Services
                     await Task.Run(() => _converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles, _settings.PathFolderSaveConverting));
                 }
 
-                _showInfoUserServices.ShowInfo("Конвертация выполнена!\n");
+                _showInfoUserServices.ShowInfo($"Конвертация выполнена!\nФайл(ы) сохранен(ы) в директорию: {_settings.PathFolderSaveConverting}\n");
                 _messageUser.Info("Конвертация успешно выполнена!");
             }
             catch (Exception ex)
@@ -160,8 +172,8 @@ namespace ConverterPDF.Services
                 var fullNameOutputPdf = Path.Combine(_settings.SelectedPathSavePdf.Value, $"{_settings.NameUnitePdf}.pdf");
 
                 await Task.Run(() => _unitePdfFileServices.UnitePdfFiles(pathFilesForUnite.OrderBy(p => p).ToList(), fullNameOutputPdf));
-                _messageUser.Info("Файлы успешно объединены!");
-                _showInfoUserServices.ShowInfo("Объединение выполнено!\n");
+                _messageUser.Info($"Файлы успешно объединены!");
+                _showInfoUserServices.ShowInfo($"Объединение выполнено!\nФайл сохранен в директорию: {_settings.SelectedPathSavePdf}\n");
 
             }
             catch (Exception ex)

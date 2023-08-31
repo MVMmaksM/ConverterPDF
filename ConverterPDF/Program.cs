@@ -32,6 +32,7 @@ namespace ConverterPDF
                     services.AddSingleton<ILoggerServices, LoggerServices>();
                     services.AddSingleton<ISettingsServices, SettingsServices>();
                     services.AddSingleton<IVersionAppServices, VersionAppServices>();
+                    services.AddSingleton<IExistsFodersServices, ExistsFoldersServices>();
                 }).Build();
 
             var app = host.Services.GetService<App>();

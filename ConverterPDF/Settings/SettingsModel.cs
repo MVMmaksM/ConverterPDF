@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -25,7 +26,7 @@ namespace ConverterPDF.Settings
             set
             {
                 _pathFolderSaveConverting = value;
-                OnPropertyChanged("PathFolderSaveConverting");
+                OnPropertyChanged("PathFolderSaveConverting");               
             }
         }
 

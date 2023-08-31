@@ -86,7 +86,7 @@
                     </Button>
                 </Grid>
             </GroupBox>
-            <TextBox x:Name="Info" Height="310" Width="580" IsReadOnly="True" TextWrapping="Wrap"/>
+            <TextBox AcceptsReturn="True" VerticalScrollBarVisibility="Auto" x:Name="Info" Height="310" Width="580" IsReadOnly="True" TextWrapping="Wrap"/>
         </StackPanel>
         <StatusBar VerticalAlignment="Bottom" Height="25" Background="#086499"/>
     </Grid>

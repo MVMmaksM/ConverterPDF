@@ -36,7 +36,7 @@ namespace ConverterPDF
             _showInfoUserServices = showInfoUserServices;
             _showInfoUserServices.AppFacadeNotify += ShowInfo;
             _appFacade = appFacade;
-            _appFacade.ShowVersionApp(this);
+            _appFacade.ShowVersionApp(this);          
         }
         private void MenuOpenCurrentLog_Click(object sender, RoutedEventArgs e)
         {
@@ -78,7 +78,11 @@ namespace ConverterPDF
             _logger.Info("Закрытие приложения");
             App.Current.Shutdown(); // закрывает процесс 
         }
-        private void ShowInfo(string message) => Info.Text += message;
+        private void ShowInfo(string message)
+        {
+            Info.AppendText(message);
+            Info.ScrollToEnd();
+        }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
