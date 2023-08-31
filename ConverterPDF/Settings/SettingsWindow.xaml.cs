@@ -22,6 +22,7 @@ namespace ConverterPDF
     public partial class SettingsWindow : Window
     {
         private SettingsModel _settingsModel;
+        private SettingsModel _prototypeSettings;
         private ISettingsServices _settingsServices;
         private IMessageUser _messageUser;
         private ILoggerServices _logger;
@@ -33,25 +34,26 @@ namespace ConverterPDF
             _messageUser = messageUser;
             _settingsModel = settings;
             _settingsServices = settingsServices;
+            _prototypeSettings = _settingsModel.Clone();
 
-            this.DataContext = _settingsModel;
+            this.DataContext = _prototypeSettings;
 
-            CmbBxPathFolderFile.DataContext = settings;
+            CmbBxPathFolderFile.DataContext = _prototypeSettings;
             CmbBxPathFolderFile.ItemsSource = SpecialFolders.Folders;
             CmbBxPathFolderFile.DisplayMemberPath = "Key";
 
 
-            CmbBxIsOpenExcel.DataContext = settings;
+            CmbBxIsOpenExcel.DataContext = _prototypeSettings;
             CmbBxIsOpenExcel.ItemsSource = VisibleFileConverting.IsVisible;
             CmbBxIsOpenExcel.DisplayMemberPath = "Key";
 
 
-            CmbBxIsOpenWord.DataContext = settings;
+            CmbBxIsOpenWord.DataContext = _prototypeSettings;
             CmbBxIsOpenWord.ItemsSource = VisibleFileConverting.IsVisible;
             CmbBxIsOpenWord.DisplayMemberPath = "Key";
 
 
-            CmbBxFolderSaveUnitePdf.DataContext = settings;
+            CmbBxFolderSaveUnitePdf.DataContext = _prototypeSettings;
             CmbBxFolderSaveUnitePdf.ItemsSource = SpecialFolders.Folders;
             CmbBxFolderSaveUnitePdf.DisplayMemberPath = "Key";
         }
@@ -61,6 +63,15 @@ namespace ConverterPDF
             try
             {
                 _logger.Info("Сохранение настроек");
+                _settingsModel.NameUnitePdf = _prototypeSettings.NameUnitePdf;
+                _settingsModel.PathAbout = _prototypeSettings.PathAbout;
+                _settingsModel.PathFolderLogs = _prototypeSettings.PathFolderLogs;
+                _settingsModel.PathFolderSaveConverting = _prototypeSettings.PathFolderSaveConverting;
+                _settingsModel.SelectedPathFolderOpenFile = _prototypeSettings.SelectedPathFolderOpenFile;
+                _settingsModel.SelectedPathSavePdf = _prototypeSettings.SelectedPathSavePdf;
+                _settingsModel.SelectedIsVisibleExcel = _prototypeSettings.SelectedIsVisibleExcel;
+                _settingsModel.SelectedIsVisibleWord = _prototypeSettings.SelectedIsVisibleWord;               
+
                 _settingsServices.SaveSettings(_settingsModel);
                 _messageUser.Info("Настройки успешно сохранены!");
             }
@@ -77,7 +88,7 @@ namespace ConverterPDF
             {
                 var pathFolderSaveConverting = _settingsServices.ShowFolderDialog();
                 if (pathFolderSaveConverting is not null)
-                    _settingsModel.PathFolderSaveConverting = pathFolderSaveConverting;
+                    _prototypeSettings.PathFolderSaveConverting = pathFolderSaveConverting;
             }
             catch (Exception ex)
             {
