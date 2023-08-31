@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConverterPDF.Settings
 {
-    public class SettingsModel : INotifyPropertyChanged, IDataErrorInfo
+    public class SettingsModel : INotifyPropertyChanged, IDataErrorInfo, IPrototype<SettingsModel>
     {
         private string _pathFolderLogs;
         private string _pathAbout;
@@ -138,6 +138,21 @@ namespace ConverterPDF.Settings
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public SettingsModel Clone()
+        {
+            return new SettingsModel()
+            {
+                PathFolderLogs = this._pathFolderLogs,
+                PathAbout = this.PathAbout,
+                PathFolderSaveConverting = this._pathFolderSaveConverting,
+                NameUnitePdf = this._nameUnitePdf,
+                SelectedIsVisibleExcel = this._selectedIsVisibleExcel,
+                SelectedIsVisibleWord = this._selectedIsVisibleWord,
+                SelectedPathFolderOpenFile = this._selectedPathFolderOpenFile,
+                SelectedPathSavePdf = this._selectedPathSavePdf
+            };
         }
     }
 }
