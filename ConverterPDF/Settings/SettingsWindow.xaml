@@ -45,7 +45,7 @@
                 <ComboBox Height="25" Margin="262,82,10,0" VerticalAlignment="Top" x:Name="CmbBxPathFolderFile" SelectedValue="{Binding Path=SelectedPathFolderOpenFile}"/>
             </Grid>
         </GroupBox>
-        <GroupBox Margin="10,150,10,0" Header="Настройки конвертации" Height="160" VerticalAlignment="Top">
+        <GroupBox Margin="10,150,10,0" Header="Настройки конвертации в pdf" Height="160" VerticalAlignment="Top">
             <Grid>
                 <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Top" Margin="10,73,0,0" HorizontalAlignment="Left" Width="249"/>
                 <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,103,0,0" HorizontalAlignment="Left" Width="249"/>
@@ -62,7 +62,7 @@
                 </TextBox>
                 <ComboBox Height="24" Margin="264,73,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenExcel" SelectedValue="{Binding Path=SelectedIsVisibleExcel}"/>
                 <ComboBox Height="25" Margin="264,102,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedValue="{Binding Path=SelectedIsVisibleWord}"/>
-                <ComboBox Height="25" Margin="264,9,10,0" VerticalAlignment="Top" x:Name="CmbBxLibConvert" IsEnabled="False"/>
+                <ComboBox Height="25" Margin="264,9,10,0" VerticalAlignment="Top" x:Name="CmbBxLibConvert" SelectedValue="{Binding Path=LibraryForConverting}"/>
                 <Button x:Name="BtnOpenFolderDialog" Click="BtnOpenFolderDialog_Click" Margin="0,39,10,0" HorizontalAlignment="Right" Width="42" Height="25" VerticalAlignment="Top">
                     <Button.Background>
                         <ImageBrush ImageSource="/Settings/Icon/OpenFolder.png" Stretch="Uniform"/>

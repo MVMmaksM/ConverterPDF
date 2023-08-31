@@ -23,6 +23,7 @@ namespace ConverterPDF.Services
             SelectedPathFolderOpenFile = new KeyValuePair<string, string>("Рабочий стол", SpecialFolders.Folders["Рабочий стол"]),
             SelectedPathSavePdf = new KeyValuePair<string, string>("Рабочий стол", SpecialFolders.Folders["Рабочий стол"]),
             PathFolderSaveConverting = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+            LibraryForConverting = LibraryforConverting.libraries[0]
         };
 
         public SettingsModel GetSettings()

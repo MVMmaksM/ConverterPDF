@@ -38,6 +38,9 @@ namespace ConverterPDF
 
             this.DataContext = _prototypeSettings;
 
+            CmbBxLibConvert.DataContext = _prototypeSettings;
+            CmbBxLibConvert.ItemsSource = LibraryforConverting.libraries;            
+
             CmbBxPathFolderFile.DataContext = _prototypeSettings;
             CmbBxPathFolderFile.ItemsSource = SpecialFolders.Folders;
             CmbBxPathFolderFile.DisplayMemberPath = "Key";
@@ -71,6 +74,7 @@ namespace ConverterPDF
                 _settingsModel.SelectedPathSavePdf = _prototypeSettings.SelectedPathSavePdf;
                 _settingsModel.SelectedIsVisibleExcel = _prototypeSettings.SelectedIsVisibleExcel;
                 _settingsModel.SelectedIsVisibleWord = _prototypeSettings.SelectedIsVisibleWord;               
+                _settingsModel.LibraryForConverting = _prototypeSettings.LibraryForConverting;               
 
                 _settingsServices.SaveSettings(_settingsModel);
                 _messageUser.Info("Настройки успешно сохранены!");
