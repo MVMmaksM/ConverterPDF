@@ -30,7 +30,7 @@ namespace ConverterPDF.Services
 
                     workbook = appExcel.Workbooks.Open(pathFile); //к вашей книге
                     appExcel.ActiveWorkbook.ExportAsFixedFormat(Excel.XlFixedFormatType.xlTypePDF, Path.ChangeExtension(pathFile, ".pdf"));//куда сохраняете
-                    workbook.Close();
+                    workbook.Close();                    
                 }
             }
             catch (Exception ex)

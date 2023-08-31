@@ -21,6 +21,7 @@ namespace ConverterPDF.Services
         private IShowAboutServices _showAboutServices;
         private static ILoggerServices _logger;
         private static ISettingsServices _settingsServices;
+        private static IVersionAppServices _versionAppServices;
         private static SettingsModel _settings;
         private List<string> pathFilesForConverting = new List<string>();
         private List<string> pathFilesForUnite = new List<string>();
@@ -29,7 +30,7 @@ namespace ConverterPDF.Services
         private string defaultExtConverting = ".xlsx|.pptx|.docx";
         private string defaultExtUnite = ".pdf";
 
-        public AppFacade(ISettingsServices settingsServices, IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILoggerServices logger, IShowInfoUserServices showInfoUserServices)
+        public AppFacade(IVersionAppServices versionAppServices, ISettingsServices settingsServices, IShowAboutServices showAboutServices, IUnitePdfFileServices unitePdfFileServices, IConvertPdfServices convertPdfServices, IGetPathFilesServices getPathFilesServices, ILogsServices logsServices, IMessageUser messageUser, ILoggerServices logger, IShowInfoUserServices showInfoUserServices)
         {
             _unitePdfFileServices = unitePdfFileServices;
             _converterPdf = convertPdfServices;
@@ -40,6 +41,7 @@ namespace ConverterPDF.Services
             _showInfoUserServices = showInfoUserServices;
             _showAboutServices = showAboutServices;
             _settingsServices = settingsServices;
+            _versionAppServices = versionAppServices;
 
             try
             {
@@ -194,6 +196,19 @@ namespace ConverterPDF.Services
             {
                 mainWindow.Info.Clear();
                 pathFilesForUnite.Clear();
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
+        }
+        public void ShowVersionApp(MainWindow mainWindow)
+        {
+            try
+            {
+                _logger.Info("Получение версии приложения");
+                mainWindow.Title += _versionAppServices.GetVersionApp();
             }
             catch (Exception ex)
             {

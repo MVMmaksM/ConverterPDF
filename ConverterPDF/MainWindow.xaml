@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConverterPDF"
         mc:Ignorable="d"
-        Title="ConverterPDF" Height="603" Width="600" ResizeMode="NoResize" Closed="Window_Closed">
+        Height="603" Width="600" ResizeMode="NoResize" Closed="Window_Closed">
     <Grid UseLayoutRounding="True" Background="AliceBlue" Loaded="Grid_Loaded">
         <Menu Height="25" VerticalAlignment="Top" Background="#086499" Foreground="WhiteSmoke">
             <MenuItem Header="Logs" Height="25">

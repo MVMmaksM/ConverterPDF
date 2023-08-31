@@ -19,5 +19,6 @@ namespace ConverterPDF.Services
         void ShowSettings(MainWindow mainWindow);
         void ClearSelectFileConvert(MainWindow mainWindow);
         void ClearSelectFileUnite(MainWindow mainWindow);
+        void ShowVersionApp(MainWindow mainWindow);
     }
 }

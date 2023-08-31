@@ -36,6 +36,7 @@ namespace ConverterPDF
             _showInfoUserServices = showInfoUserServices;
             _showInfoUserServices.AppFacadeNotify += ShowInfo;
             _appFacade = appFacade;
+            _appFacade.ShowVersionApp(this);
         }
         private void MenuOpenCurrentLog_Click(object sender, RoutedEventArgs e)
         {
