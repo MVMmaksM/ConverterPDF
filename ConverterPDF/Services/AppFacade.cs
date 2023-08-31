@@ -96,19 +96,19 @@ namespace ConverterPDF.Services
                 if (pathExcelFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Excel");
-                    await Task.Run(() => _converterPdf.ConvertExcelToPdf(pathExcelFiles, _settings.SelectedIsVisibleExcel.Value));
+                    await Task.Run(() => _converterPdf.ConvertExcelToPdf(pathExcelFiles, _settings.PathFolderSaveConverting, _settings.SelectedIsVisibleExcel.Value));
                 }
 
                 if (pathWordFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Word");
-                    await Task.Run(() => _converterPdf.ConvertWordToPdf(pathWordFiles, _settings.SelectedIsVisibleWord.Value));
+                    await Task.Run(() => _converterPdf.ConvertWordToPdf(pathWordFiles, _settings.PathFolderSaveConverting, _settings.SelectedIsVisibleWord.Value));
                 }
 
                 if (pathPowerPointFiles.Count > 0)
                 {
                     _logger.Info("Конвертация Power Point");
-                    await Task.Run(() => _converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles));
+                    await Task.Run(() => _converterPdf.ConvertPowerPointToPdf(pathPowerPointFiles, _settings.PathFolderSaveConverting));
                 }
 
                 _showInfoUserServices.ShowInfo("Конвертация выполнена!\n");
