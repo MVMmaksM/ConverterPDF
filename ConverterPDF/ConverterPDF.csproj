@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Settings\Icon\OpenFolder.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <COMReference Include="Microsoft.Office.Interop.Word">
       <WrapperTool>tlbimp</WrapperTool>
       <VersionMinor>5</VersionMinor>
@@ -55,6 +59,10 @@
     <PackageReference Include="NLog" Version="5.2.3" />
     <PackageReference Include="NLog.Config" Version="4.7.15" />
     <PackageReference Include="NLog.Schema" Version="5.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Settings\Icon\OpenFolder.png" />
   </ItemGroup>
 
 </Project>

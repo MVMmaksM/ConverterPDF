@@ -69,5 +69,10 @@ namespace ConverterPDF
                 _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
             }
         }
+
+        private void BtnOpenFolderDialog_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

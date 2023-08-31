@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConverterPDF"
         mc:Ignorable="d"
-        Title="Настройки" Height="478" Width="800" ResizeMode="NoResize">
+        Title="Настройки" Height="510" Width="800" ResizeMode="NoResize">
     <Grid UseLayoutRounding="True" Background="AliceBlue">
         <GroupBox Margin="10,10,10,0" Header="Общие настройки" Height="147" VerticalAlignment="Top">
             <Grid>
@@ -33,15 +33,22 @@
                 <ComboBox Height="25" Margin="262,82,10,0" VerticalAlignment="Top" x:Name="CmbBxPathFolderFile" SelectedValue="{Binding Path=SelectedPathFolderOpenFile}"/>
             </Grid>
         </GroupBox>
-        <GroupBox Margin="10,160,10,0" Header="Настройки конвертации" Height="103" VerticalAlignment="Top">
+        <GroupBox Margin="10,160,10,0" Header="Настройки конвертации" Height="139" VerticalAlignment="Top">
             <Grid>
-                <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="234"/>
-                <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,42,0,0" HorizontalAlignment="Left" Width="234"/>
-                <ComboBox Height="25" Margin="264,10,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenExcel" SelectedValue="{Binding Path=SelectedIsVisibleExcel}"/>
-                <ComboBox Height="25" Margin="264,42,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedValue="{Binding Path=SelectedIsVisibleWord}"/>
+                <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" Width="234"/>
+                <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,82,0,0" HorizontalAlignment="Left" Width="234"/>
+                <Label Height="24" Content="Путь сохранения файлов:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="234"/>
+                <TextBox x:Name="TxtBxPathFolderSaveConvert" Height="25" VerticalAlignment="Top" Margin="264,10,57,0"/>
+                <ComboBox Height="24" Margin="264,0,10,0" VerticalAlignment="Center" x:Name="CmbBxIsOpenExcel" SelectedValue="{Binding Path=SelectedIsVisibleExcel}"/>
+                <ComboBox Height="25" Margin="264,81,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedValue="{Binding Path=SelectedIsVisibleWord}"/>
+                <Button x:Name="BtnOpenFolderDialog" Click="BtnOpenFolderDialog_Click" Margin="0,10,10,81" HorizontalAlignment="Right" Width="42">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/Settings/Icon/OpenFolder.png" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
             </Grid>
         </GroupBox>
-        <GroupBox Margin="10,270,10,0" Header="Настройки объединения" Height="102" VerticalAlignment="Top">
+        <GroupBox Margin="10,304,10,0" Header="Настройки объединения" Height="102" VerticalAlignment="Top">
             <Grid>
                 <Label Height="25" VerticalAlignment="Top" Margin="10,10,0,0" Content="Директория сохранения объединенного pdf:" HorizontalAlignment="Left" Width="259"/>
                 <Label Height="25" VerticalAlignment="Top" Margin="10,40,499,0" Content="Имя объединенного pdf:"/>
