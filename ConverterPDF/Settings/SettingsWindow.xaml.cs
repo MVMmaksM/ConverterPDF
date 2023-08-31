@@ -60,8 +60,9 @@ namespace ConverterPDF
         {
             try
             {
+                _logger.Info("Сохранение настроек");
                 _settingsServices.SaveSettings(_settingsModel);
-                _messageUser.Info("Настройки успешно сохранены!");           
+                _messageUser.Info("Настройки успешно сохранены!");
             }
             catch (Exception ex)
             {
@@ -72,7 +73,17 @@ namespace ConverterPDF
 
         private void BtnOpenFolderDialog_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                var pathFolderSaveConverting = _settingsServices.ShowFolderDialog();
+                if (pathFolderSaveConverting is not null)
+                    _settingsModel.PathFolderSaveConverting = pathFolderSaveConverting;
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
         }
     }
 }

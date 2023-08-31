@@ -6,22 +6,34 @@
         xmlns:local="clr-namespace:ConverterPDF"
         mc:Ignorable="d"
         Title="Настройки" Height="510" Width="800" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style x:Key="TextBoxTooltipError" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid UseLayoutRounding="True" Background="AliceBlue">
         <GroupBox Margin="10,10,10,0" Header="Общие настройки" Height="147" VerticalAlignment="Top">
             <Grid>
                 <Label Height="27" VerticalAlignment="Top" Margin="10,10,0,0" Content="Путь к папке log-файлов:" HorizontalAlignment="Left" Width="247"/>
                 <Label Height="26" VerticalAlignment="Top" Margin="10,81,0,0" Content="Директория открытия файлов для выбора:" HorizontalAlignment="Left" Width="247"/>
                 <Label Height="26" VerticalAlignment="Top" Margin="10,40,511,0" Content="Путь к файлу About:"/>
-                <TextBox Height="25" Margin="262,11,10,86" x:Name="TxBxPathFolderLogs">
+                <TextBox Height="25" Margin="262,11,10,86" x:Name="TxBxPathFolderLogs" Style="{StaticResource TextBoxTooltipError}">
                     <TextBox.Text>
                         <Binding Path="PathFolderLogs">
                             <Binding.ValidationRules>
-                                <DataErrorValidationRule />
+                                <DataErrorValidationRule/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <TextBox Height="25" Margin="262,41,10,56" x:Name="TxBxPathAbout">
+                <TextBox Height="25" Margin="262,41,10,56" x:Name="TxBxPathAbout" Style="{StaticResource TextBoxTooltipError}">
                     <TextBox.Text>
                         <Binding Path="PathAbout">
                             <Binding.ValidationRules>
@@ -38,7 +50,15 @@
                 <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Left" Width="234"/>
                 <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,82,0,0" HorizontalAlignment="Left" Width="234"/>
                 <Label Height="24" Content="Путь сохранения файлов:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="234"/>
-                <TextBox x:Name="TxtBxPathFolderSaveConvert" Height="25" VerticalAlignment="Top" Margin="264,10,57,0"/>
+                <TextBox x:Name="TxtBxPathFolderSaveConvert" Height="25" VerticalAlignment="Top" Margin="264,10,57,0" Style="{StaticResource TextBoxTooltipError}">
+                    <TextBox.Text>
+                        <Binding Path="PathFolderSaveConverting">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
                 <ComboBox Height="24" Margin="264,0,10,0" VerticalAlignment="Center" x:Name="CmbBxIsOpenExcel" SelectedValue="{Binding Path=SelectedIsVisibleExcel}"/>
                 <ComboBox Height="25" Margin="264,81,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedValue="{Binding Path=SelectedIsVisibleWord}"/>
                 <Button x:Name="BtnOpenFolderDialog" Click="BtnOpenFolderDialog_Click" Margin="0,10,10,81" HorizontalAlignment="Right" Width="42">
@@ -53,11 +73,11 @@
                 <Label Height="25" VerticalAlignment="Top" Margin="10,10,0,0" Content="Директория сохранения объединенного pdf:" HorizontalAlignment="Left" Width="259"/>
                 <Label Height="25" VerticalAlignment="Top" Margin="10,40,499,0" Content="Имя объединенного pdf:"/>
                 <ComboBox Height="25" Margin="274,12,10,0" VerticalAlignment="Top" x:Name="CmbBxFolderSaveUnitePdf" SelectedValue="{Binding Path=SelectedPathSavePdf}"/>
-                <TextBox Height="25" Margin="274,42,10,0" VerticalAlignment="Top" x:Name="NameUniteFilePdf">
+                <TextBox Height="25" Margin="274,42,10,0" VerticalAlignment="Top" x:Name="NameUniteFilePdf" Style="{StaticResource TextBoxTooltipError}">
                     <TextBox.Text>
                         <Binding Path="NameUnitePdf">
                             <Binding.ValidationRules>
-                                <DataErrorValidationRule />
+                                <DataErrorValidationRule/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

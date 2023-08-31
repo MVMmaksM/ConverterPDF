@@ -12,5 +12,6 @@ namespace ConverterPDF.Services
         void SaveSettings(SettingsModel settings);
         SettingsModel GetSettings();
         SettingsModel CreateDefaultSettings();
+        string? ShowFolderDialog();
     }
 }

@@ -8,20 +8,31 @@ using System.Threading.Tasks;
 
 namespace ConverterPDF.Settings
 {
-    public class SettingsModel : INotifyPropertyChanged
+    public class SettingsModel : INotifyPropertyChanged, IDataErrorInfo
     {
         private string _pathFolderLogs;
         private string _pathAbout;
-        private string _nameUnitePdf; 
+        private string _nameUnitePdf;
+        private string _pathFolderSaveConverting;
         private KeyValuePair<string, string> _selectedPathSavePdf;
         private KeyValuePair<string, string> _selectedPathFolderOpenFile;
         private KeyValuePair<string, bool> _selectedIsVisibleExcel;
         private KeyValuePair<string, bool> _selectedIsVisibleWord;
 
+        public string PathFolderSaveConverting
+        {
+            get => _pathFolderSaveConverting;
+            set
+            {
+                _pathFolderSaveConverting = value;
+                OnPropertyChanged("PathFolderSaveConverting");
+            }
+        }
+
         public KeyValuePair<string, string> SelectedPathSavePdf
         {
-            get { return _selectedPathSavePdf; }
-            set 
+            get => _selectedPathSavePdf;
+            set
             {
                 _selectedPathSavePdf = value;
                 OnPropertyChanged("SelectedPathSavePdf");
@@ -29,8 +40,8 @@ namespace ConverterPDF.Settings
         }
         public KeyValuePair<string, string> SelectedPathFolderOpenFile
         {
-            get { return _selectedPathFolderOpenFile; }
-            set 
+            get => _selectedPathFolderOpenFile;
+            set
             {
                 _selectedPathFolderOpenFile = value;
                 OnPropertyChanged("SelectedPathFolderOpenFile");
@@ -38,8 +49,8 @@ namespace ConverterPDF.Settings
         }
         public KeyValuePair<string, bool> SelectedIsVisibleExcel
         {
-            get { return _selectedIsVisibleExcel; }
-            set 
+            get => _selectedIsVisibleExcel;
+            set
             {
                 _selectedIsVisibleExcel = value;
                 OnPropertyChanged("SelectedIsVisibleExcel");
@@ -47,13 +58,13 @@ namespace ConverterPDF.Settings
         }
         public KeyValuePair<string, bool> SelectedIsVisibleWord
         {
-            get { return _selectedIsVisibleWord; }
-            set 
+            get => _selectedIsVisibleWord;
+            set
             {
                 _selectedIsVisibleWord = value;
                 OnPropertyChanged("SelectedIsVisibleWord");
             }
-        }      
+        }
         public string PathFolderLogs
         {
             get => _pathFolderLogs;
@@ -65,7 +76,7 @@ namespace ConverterPDF.Settings
         }
         public string PathAbout
         {
-            get { return _pathAbout; }
+            get => _pathAbout;
             set
             {
                 _pathAbout = value;
@@ -74,13 +85,14 @@ namespace ConverterPDF.Settings
         }
         public string NameUnitePdf
         {
-            get { return _nameUnitePdf; }
+            get => _nameUnitePdf;
             set
             {
                 _nameUnitePdf = value;
                 OnPropertyChanged("NameUnitePdf");
             }
         }
+        #region IDataErrorInfo Members
         public string this[string columnName]
         {
             get
@@ -89,7 +101,7 @@ namespace ConverterPDF.Settings
                 switch (columnName)
                 {
                     case "PathFolderLogs":
-                        if (string.IsNullOrWhiteSpace(PathFolderLogs))
+                        if (string.IsNullOrEmpty(PathFolderLogs))
                         {
                             error = "Необходимо указать путь";
                         }
@@ -106,12 +118,20 @@ namespace ConverterPDF.Settings
                             error = "Необходимо указать имя";
                         }
                         break;
+                    case "PathFolderSaveConverting":
+                        if (string.IsNullOrWhiteSpace(PathFolderSaveConverting))
+                        {
+                            error = "Необходимо указать путь";
+                        }
+                        break;
                 }
                 return error;
             }
         }
 
-        //public string Error => throw new NotImplementedException();
+        public string Error => string.Empty;
+
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

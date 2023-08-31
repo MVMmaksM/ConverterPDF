@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ConverterPDF.Services
 {
@@ -20,7 +21,8 @@ namespace ConverterPDF.Services
             SelectedIsVisibleExcel = new KeyValuePair<string, bool>("Да", VisibleFileConverting.IsVisible["Да"]),
             SelectedIsVisibleWord = new KeyValuePair<string, bool>("Да", VisibleFileConverting.IsVisible["Да"]),
             SelectedPathFolderOpenFile = new KeyValuePair<string, string>("Рабочий стол", SpecialFolders.Folders["Рабочий стол"]),
-            SelectedPathSavePdf = new KeyValuePair<string, string>("Рабочий стол", SpecialFolders.Folders["Рабочий стол"])
+            SelectedPathSavePdf = new KeyValuePair<string, string>("Рабочий стол", SpecialFolders.Folders["Рабочий стол"]),
+            PathFolderSaveConverting = Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
         };
 
         public SettingsModel GetSettings()
@@ -46,6 +48,21 @@ namespace ConverterPDF.Services
             {
                 strWriter.WriteLine(strSettings);
             }
+        }
+
+        public string? ShowFolderDialog()
+        {
+            string? pathFolder = null;
+            var folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                pathFolder = folderBrowserDialog.SelectedPath;
+                return pathFolder;
+            }
+
+            return pathFolder;
         }
     }
 }

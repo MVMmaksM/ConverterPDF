@@ -173,9 +173,17 @@ namespace ConverterPDF.Services
         public void ShowAbout() => _showAboutServices.ShowAbout(_settings.PathAbout);
         public void ShowSettings(MainWindow mainWindow)
         {
-            var settingWindow = new SettingsWindow(_settings, _settingsServices, _messageUser, _logger);
-            settingWindow.Owner = mainWindow;
-            settingWindow.Show();
+            try
+            {
+                var settingWindow = new SettingsWindow(_settings, _settingsServices, _messageUser, _logger);
+                settingWindow.Owner = mainWindow;
+                settingWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                _messageUser.Error(ex.Message);
+                _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
         }
         public void ClearSelectFileConvert(MainWindow mainWindow)
         {
