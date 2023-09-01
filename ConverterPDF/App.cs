@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace ConverterPDF
 {
-    public class App : Application
+    public partial class App : Application
     {
         readonly MainWindow mainWindow;
 
