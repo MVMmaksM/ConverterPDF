@@ -15,28 +15,18 @@ namespace ConverterPDF.Settings
         private string _pathAbout;
         private string _nameUnitePdf;
         private string _pathFolderSaveConverting;
-        private string _libraryForConverting;
         private KeyValuePair<string, string> _selectedPathSavePdf;
         private KeyValuePair<string, string> _selectedPathFolderOpenFile;
         private KeyValuePair<string, bool> _selectedIsVisibleExcel;
         private KeyValuePair<string, bool> _selectedIsVisibleWord;
 
-        public string LibraryForConverting 
-        {
-            get=> _libraryForConverting;
-            set 
-            {
-                _libraryForConverting = value;
-                OnPropertyChanged("LibraryForConverting");
-            }
-        }
         public string PathFolderSaveConverting
         {
             get => _pathFolderSaveConverting;
             set
             {
                 _pathFolderSaveConverting = value;
-                OnPropertyChanged("PathFolderSaveConverting");               
+                OnPropertyChanged("PathFolderSaveConverting");
             }
         }
 
@@ -162,8 +152,7 @@ namespace ConverterPDF.Settings
                 SelectedIsVisibleExcel = this._selectedIsVisibleExcel,
                 SelectedIsVisibleWord = this._selectedIsVisibleWord,
                 SelectedPathFolderOpenFile = this._selectedPathFolderOpenFile,
-                SelectedPathSavePdf = this._selectedPathSavePdf,
-                LibraryForConverting = this._libraryForConverting                
+                SelectedPathSavePdf = this._selectedPathSavePdf
             };
         }
     }

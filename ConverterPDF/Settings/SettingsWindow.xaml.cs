@@ -38,9 +38,6 @@ namespace ConverterPDF
 
             this.DataContext = _prototypeSettings;
 
-            CmbBxLibConvert.DataContext = _prototypeSettings;
-            CmbBxLibConvert.ItemsSource = LibraryforConverting.libraries;           
-
             CmbBxPathFolderFile.DataContext = _prototypeSettings;
             CmbBxPathFolderFile.ItemsSource = SpecialFolders.Folders;
             CmbBxPathFolderFile.DisplayMemberPath = "Key";
@@ -73,8 +70,7 @@ namespace ConverterPDF
                 _settingsModel.SelectedPathFolderOpenFile = _prototypeSettings.SelectedPathFolderOpenFile;
                 _settingsModel.SelectedPathSavePdf = _prototypeSettings.SelectedPathSavePdf;
                 _settingsModel.SelectedIsVisibleExcel = _prototypeSettings.SelectedIsVisibleExcel;
-                _settingsModel.SelectedIsVisibleWord = _prototypeSettings.SelectedIsVisibleWord;               
-                _settingsModel.LibraryForConverting = _prototypeSettings.LibraryForConverting;               
+                _settingsModel.SelectedIsVisibleWord = _prototypeSettings.SelectedIsVisibleWord;
 
                 _settingsServices.SaveSettings(_settingsModel);
                 _messageUser.Info("Настройки успешно сохранены!");
@@ -98,21 +94,6 @@ namespace ConverterPDF
             {
                 _messageUser.Error(ex.Message);
                 _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
-            }
-        }
-
-        private void CmbBxLibConvert_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {           
-
-            if (CmbBxLibConvert.SelectedValue.ToString().Contains("Microsoft Office Interop"))
-            {
-                CmbBxIsOpenWord.IsEnabled = true;
-                CmbBxIsOpenExcel.IsEnabled = true;
-            }
-            else if(CmbBxLibConvert.SelectedValue.ToString().Contains("iTextSharp"))
-            {
-                CmbBxIsOpenWord.IsEnabled = false;
-                CmbBxIsOpenExcel.IsEnabled = false;                
             }
         }
     }

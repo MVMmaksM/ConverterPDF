@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConverterPDF"
         mc:Ignorable="d"
-        Title="Настройки" Height="535" Width="800" ResizeMode="NoResize">
+        Title="Настройки" Height="496" Width="800" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="TextBoxTooltipError" TargetType="TextBox">
             <Style.Triggers>
@@ -45,13 +45,12 @@
                 <ComboBox Height="25" Margin="262,82,10,0" VerticalAlignment="Top" x:Name="CmbBxPathFolderFile" SelectedValue="{Binding Path=SelectedPathFolderOpenFile}"/>
             </Grid>
         </GroupBox>
-        <GroupBox Margin="10,150,10,0" Header="Настройки конвертации в pdf" Height="160" VerticalAlignment="Top">
+        <GroupBox Margin="10,150,10,0" Header="Настройки конвертации в pdf" Height="122" VerticalAlignment="Top">
             <Grid>
-                <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Top" Margin="10,73,0,0" HorizontalAlignment="Left" Width="249"/>
-                <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,103,0,0" HorizontalAlignment="Left" Width="249"/>
-                <Label Height="24" Content="Путь сохранения файлов:" VerticalAlignment="Top" Margin="10,40,0,0" HorizontalAlignment="Left" Width="249"/>
-                <Label Height="25" Content="Библиотека для конвертации Word, Excel:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="249"/>
-                <TextBox x:Name="TxtBxPathFolderSaveConvert" Height="25" VerticalAlignment="Top" Margin="264,39,57,0" Style="{StaticResource TextBoxTooltipError}">
+                <Label Height="25" Content="Открывать Excel-файл при конвертации:" VerticalAlignment="Top" Margin="10,38,0,0" HorizontalAlignment="Left" Width="249"/>
+                <Label Height="24" Content="Открывать Word-файл при конвертации:" VerticalAlignment="Top" Margin="10,66,0,0" HorizontalAlignment="Left" Width="249"/>
+                <Label Height="28" Content="Путь сохранения файлов:" VerticalAlignment="Top" Margin="10,10,0,0" HorizontalAlignment="Left" Width="249"/>
+                <TextBox x:Name="TxtBxPathFolderSaveConvert" Height="25" VerticalAlignment="Top" Margin="264,10,57,0" Style="{StaticResource TextBoxTooltipError}">
                     <TextBox.Text>
                         <Binding Path="PathFolderSaveConverting">
                             <Binding.ValidationRules>
@@ -60,17 +59,16 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <ComboBox Height="24" Margin="264,73,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenExcel" SelectedValue="{Binding Path=SelectedIsVisibleExcel}"/>
-                <ComboBox Height="25" Margin="264,102,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedValue="{Binding Path=SelectedIsVisibleWord}"/>
-                <ComboBox Height="25" Margin="264,9,10,0" VerticalAlignment="Top" x:Name="CmbBxLibConvert" SelectedValue="{Binding Path=LibraryForConverting}" SelectionChanged="CmbBxLibConvert_SelectionChanged"/>
-                <Button x:Name="BtnOpenFolderDialog" Click="BtnOpenFolderDialog_Click" Margin="0,39,10,0" HorizontalAlignment="Right" Width="42" Height="25" VerticalAlignment="Top">
+                <ComboBox Height="24" Margin="264,40,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenExcel" SelectedValue="{Binding Path=SelectedIsVisibleExcel}"/>
+                <ComboBox Height="25" Margin="264,68,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedValue="{Binding Path=SelectedIsVisibleWord}"/>
+                <Button x:Name="BtnOpenFolderDialog" Click="BtnOpenFolderDialog_Click" Margin="0,10,10,0" HorizontalAlignment="Right" Width="42" Height="25" VerticalAlignment="Top">
                     <Button.Background>
                         <ImageBrush ImageSource="/Settings/Icon/OpenFolder.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
             </Grid>
         </GroupBox>
-        <GroupBox Margin="10,315,10,0" Header="Настройки объединения" Height="97" VerticalAlignment="Top">
+        <GroupBox Margin="10,277,10,0" Header="Настройки объединения" Height="97" VerticalAlignment="Top">
             <Grid>
                 <Label Height="25" VerticalAlignment="Top" Margin="10,10,0,0" Content="Директория сохранения объединенного pdf:" HorizontalAlignment="Left" Width="259"/>
                 <Label Height="25" VerticalAlignment="Top" Margin="10,40,499,0" Content="Имя объединенного pdf:"/>
@@ -86,7 +84,7 @@
                 </TextBox>
             </Grid>
         </GroupBox>
-        <Button x:Name="SavwSettings" Click="SaveSettings_Click" Width="250" HorizontalAlignment="Center" Margin="0,0,0,41" Content="Сохранить" Background="#0896fe" Foreground="WhiteSmoke" Height="25" VerticalAlignment="Bottom">
+        <Button x:Name="SavwSettings" Click="SaveSettings_Click" Width="250" HorizontalAlignment="Center" Margin="0,396,0,0" Content="Сохранить" Background="#0896fe" Foreground="WhiteSmoke" Height="25" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="2"/>
