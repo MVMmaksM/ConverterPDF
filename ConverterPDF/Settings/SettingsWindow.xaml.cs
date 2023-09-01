@@ -39,7 +39,7 @@ namespace ConverterPDF
             this.DataContext = _prototypeSettings;
 
             CmbBxLibConvert.DataContext = _prototypeSettings;
-            CmbBxLibConvert.ItemsSource = LibraryforConverting.libraries;            
+            CmbBxLibConvert.ItemsSource = LibraryforConverting.libraries;           
 
             CmbBxPathFolderFile.DataContext = _prototypeSettings;
             CmbBxPathFolderFile.ItemsSource = SpecialFolders.Folders;
@@ -98,6 +98,21 @@ namespace ConverterPDF
             {
                 _messageUser.Error(ex.Message);
                 _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
+            }
+        }
+
+        private void CmbBxLibConvert_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {           
+
+            if (CmbBxLibConvert.SelectedValue.ToString().Contains("Microsoft Office Interop"))
+            {
+                CmbBxIsOpenWord.IsEnabled = true;
+                CmbBxIsOpenExcel.IsEnabled = true;
+            }
+            else if(CmbBxLibConvert.SelectedValue.ToString().Contains("iTextSharp"))
+            {
+                CmbBxIsOpenWord.IsEnabled = false;
+                CmbBxIsOpenExcel.IsEnabled = false;                
             }
         }
     }

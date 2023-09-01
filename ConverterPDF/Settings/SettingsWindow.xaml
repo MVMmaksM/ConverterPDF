@@ -62,7 +62,7 @@
                 </TextBox>
                 <ComboBox Height="24" Margin="264,73,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenExcel" SelectedValue="{Binding Path=SelectedIsVisibleExcel}"/>
                 <ComboBox Height="25" Margin="264,102,10,0" VerticalAlignment="Top" x:Name="CmbBxIsOpenWord" SelectedValue="{Binding Path=SelectedIsVisibleWord}"/>
-                <ComboBox Height="25" Margin="264,9,10,0" VerticalAlignment="Top" x:Name="CmbBxLibConvert" SelectedValue="{Binding Path=LibraryForConverting}"/>
+                <ComboBox Height="25" Margin="264,9,10,0" VerticalAlignment="Top" x:Name="CmbBxLibConvert" SelectedValue="{Binding Path=LibraryForConverting}" SelectionChanged="CmbBxLibConvert_SelectionChanged"/>
                 <Button x:Name="BtnOpenFolderDialog" Click="BtnOpenFolderDialog_Click" Margin="0,39,10,0" HorizontalAlignment="Right" Width="42" Height="25" VerticalAlignment="Top">
                     <Button.Background>
                         <ImageBrush ImageSource="/Settings/Icon/OpenFolder.png" Stretch="Uniform"/>
