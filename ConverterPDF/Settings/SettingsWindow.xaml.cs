@@ -38,9 +38,6 @@ namespace ConverterPDF
 
             this.DataContext = _prototypeSettings;
 
-            CmbBxThemes.DataContext = _prototypeSettings;
-            CmbBxThemes.ItemsSource = Themes.ThemesList;
-
             CmbBxPathFolderFile.DataContext = _prototypeSettings;
             CmbBxPathFolderFile.ItemsSource = SpecialFolders.Folders;
             CmbBxPathFolderFile.DisplayMemberPath = "Key";
@@ -98,19 +95,6 @@ namespace ConverterPDF
                 _messageUser.Error(ex.Message);
                 _logger.Error($"{ex.Message}\nтрассировка стека: {ex.StackTrace}");
             }
-        }
-
-        private void CmbBxThemes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string style = CmbBxThemes.SelectedItem as string;
-            // определяем путь к файлу ресурсов
-            var uri = new Uri($"\\Themes\\{style}.xaml", UriKind.Relative);
-            // загружаем словарь ресурсов
-            ResourceDictionary resourceDict = App.LoadComponent(uri) as ResourceDictionary;
-            // очищаем коллекцию ресурсов приложения
-            App.Current.Resources.Clear();
-            // добавляем загруженный словарь ресурсов
-            App.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
     }
 }

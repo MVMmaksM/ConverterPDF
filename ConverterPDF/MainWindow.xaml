@@ -17,7 +17,7 @@
             <MenuItem Header="О программе" Click="MenuAbout_Click"/>
         </Menu>
         <StackPanel Margin="0,25,0,0" Height="534" VerticalAlignment="Top">
-            <GroupBox Header="Конвертер" Height="88" Width="580" BorderBrush="#FF88898A" Foreground="WhiteSmoke">
+            <GroupBox Header="Конвертер" Height="88" Width="580" BorderBrush="#FF88898A" Foreground="Black">
                 <Grid>
                     <Button x:Name="LoadFile" Click="LoadFileForConverting_Click" Content="Выбрать файл(ы)" Width="180" Height="25" Margin="10,11,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#A61114" Foreground="WhiteSmoke"  Style="{DynamicResource ButtonStyle}">
                         <Button.Resources>
@@ -52,7 +52,7 @@
                     </Button>
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Объединить PDF" Height="80" Width="580" Margin="0,10,0,10" BorderBrush="#FF88898A" Foreground="WhiteSmoke">
+            <GroupBox Header="Объединить PDF" Height="80" Width="580" Margin="0,10,0,10" BorderBrush="#FF88898A" Foreground="Black">
                 <Grid>
                     <Button x:Name="LoadPdfForUnite" Click="LoadPdfForUnite_Click" Height="25" Width="180" HorizontalAlignment="Left" Margin="10" Content="Выбрать файлы" Background="#A61114" Foreground="WhiteSmoke" VerticalAlignment="Top">
                         <Button.Resources>
